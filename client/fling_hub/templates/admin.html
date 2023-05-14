@@ -1,0 +1,20 @@
+<h1>Welcome to your LoopHost</h1>
+
+<div>
+        Your local apps:<ul>
+        {% if not apps %}
+            <h2>No local apps set up yet!</h2>
+        {% endif %}
+        {% for x in apps %}
+        <li>
+                <a href="https://{{x}}.{{fqdn}}">{{x}}</a>
+                [ running at {{apps[x]}} ]
+                <a href="/unbind?project={{x}}">X</a>
+        </li>
+        {% endfor %}
+        </ul>
+        </div>
+    
+<h2>Add a new application</h2>
+App name (no spaces, please): <input id="new_app_field" type="text" name="new_app"/><br/>
+<input type="button" onclick="window.location.href = `https://${document.getElementById('new_app_field').value}.{{fqdn}}`;" value="Set it up"/>

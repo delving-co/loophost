@@ -23,9 +23,22 @@ logo = "FLING"
 admin = Flask(__name__, static_url_path="/dontdoit")
 
 
-@admin.route("/", methods=["GET", "POST"])
-def admin_page():
+@admin.route("/unbind")
+def unbind():
+    project = request.args.get("project")
+    if project and project in config["apps"]:
+        del config["apps"][project]
+        with open("loophost.json", "w") as appjson:
+            appjson.write(json.dumps(config))
+    return redirect("/")
+
+
+@admin.route("/", defaults={'path': ''}, methods=["GET", "POST"])
+@admin.route("/<path:path>", methods=["GET", "POST"])
+def admin_page(path):
     fqdn = request.host.split(".")
+    if len(fqdn) < 4:
+        return render_template("admin.html", apps=config["apps"], fqdn=".".join(fqdn))
     project = fqdn.pop(0)
     if request.form.get("application_port"):
         config["apps"][project] = request.form.get("application_port")
@@ -38,16 +51,6 @@ def admin_page():
         project=project,
         fqdn=".".join(fqdn),
     )
-
-
-@admin.route("/unbind")
-def unbind():
-    project = request.args.get("project")
-    if project and project in config["apps"]:
-        del config["apps"][project]
-        with open("loophost.json", "w") as appjson:
-            appjson.write(json.dumps(config))
-    return redirect("/")
 
 
 def offload_proxy(env, start_response):
