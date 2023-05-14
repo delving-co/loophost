@@ -1,0 +1,22 @@
+<html style="height: 100%; width: 100%">
+  <head>
+    <script type="text/javascript" src="http://www.x3dom.org/release/x3dom-full.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/release/x3dom.css">
+    <style>x3d > canvas { display: block; }</style>
+  </head>
+  <body style="height: 100%; width: 100%; margin: 0px">
+    <x3d style="height: 100%; width: 100%">
+      <scene>
+        <orthoviewpoint></orthoviewpoint>
+        <navigationinfo headlight="false"></navigationinfo>
+        <directionallight direction="1 -1 -1" on="true" intensity="1.0"></directionallight>
+        <shape>
+          <appearance>
+            <material diffuseColor="1 0 0"></material>
+          </appearance>
+          <sphere radius="0.5"></sphere>
+        </shape>
+      </scene>
+    </x3d>
+  </body>
+</html>

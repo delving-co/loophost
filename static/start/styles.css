@@ -1,0 +1,62 @@
+#loading {
+    /* background-color: lightslategrey; */
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    /* filter: url(#loading-shader); */
+}
+
+#stacked {
+    position: relative;
+}
+
+#content {
+    display: none;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+body.loaded #content {
+    position: relative;
+    display: block;
+    opacity: 1;
+    z-index: 100;
+}
+
+#shadedgroup {
+    transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+body.loaded #shadedgroup {
+    visibility: hidden;
+    opacity: 0;
+}
+
+@media only screen and (min-width: 900px) {
+#shadedgroup {
+    filter: url(#loading-shader);
+}
+}
+
+.loadingCircle {
+    filter: url(#blur);
+}
+    /* 
+.stacked * {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+} */
+
+svg.shaders {
+    position: absolute;
+}
+
+svg {
+    overflow: visible;
+}
+
+body {
+    margin: 0;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="/static/favicon.ico">
+        <title>Beautiful loading screen</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script defer data-domain="fling.dev" src="https://plausible.io/js/script.js"></script>
+        
+        <link href="/static/start/styles.css" rel="stylesheet">
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        
+        
+<style>
+
+dl, dd {
+    padding-left: 1em;
+}
+dt {
+    font-size: 1.2em;
+}
+
+</style>
+<script>
+
+const clipReady = () => {
+  navigator.clipboard.writeText("curl https://fling.dev/install.sh | bash");
+  document.getElementById("copyButton").value = "Copied!";
+}
+</script>
+
+    </head>
+    <body>
+        <div id="maincontent">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+            
+
+
+            
+<main >
+
+<div class="container m-5 font-monospace">
+<h1>Welcome to loophost.</h1>
+<dl>
+<dt>WHAT:</dt> 
+<dd>Turnkey localhost management for students, freelancers, agencies and development teams of all sizes.</dd>
+
+<dt>WHY:</dt> 
+<dd>Because it's 2023, and <mark>friends don't let friends run without SSL</mark>.</dd>
+
+<dt>HOW:</dt> 
+<dd>Log in with fling auth (using your GitHub credentials), and we'll do the rest.
+Specifically, we'll generate a private key (<u>that never leaves your computer</u>) and set up
+DNS records and SSL certificates for *.&lt;github-username&gt;.fling.dev.<br/>
+
+When you visit <span class="text-primary fw-bold">https://yourapp.username.fling.dev</span>, you'll be able to choose any locally
+running web app (in any language, and on any port or web socket) to bind to that name.</dd>
+
+<dt>WHAT ABOUT...</dt>
+<dd>Websockets? Yep.</dd>
+<dd>Running in debug mode? Absolutely. Breakpoints work just as you would expect.</dd>
+<dd>How many apps can I have running? We have no idea, let's find out together.</dd>
+
+</dl>
+</div>
+
+<div class="m-0 p-3 row" style="background-color: #ddd;">
+    <label for="curlline" class="col-sm-2 col-form-label fw-bold text-white text-end">FREE INSTALL</label>
+    <div class="col-sm-8">
+      <input type="text" onclick="clipReady()"; readonly class="form-control input-lg" id="curlline" value="curl https://fling.dev/install.sh | bash">
+    </div>
+    <div class="col-sm-2">
+    <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success" value="Copy!"/>
+    </div>
+</div>
+
+<div class="container m-5 font-monospace">
+<h1>Ready to leave localhost? Time to upgrade.</h1>
+
+<dl>
+<dt>MOBILE DEV</dt> 
+
+<dd>Building mobile apps means sharing your APIs from your laptop, to your Android, your iPhone, 
+and the rest of your team. Simply flip the "sharing" toggle on
+https://username.fling.dev for that app, and we'll TUNNEL traffic from the public internet
+to your local machine.</dd>
+
+<dt>SECURE SHARING:</dt> 
+<dd>Not ready to share with EVERYONE in the world? Enable "secured" sharing,
+and you can issue individual certificates to each of your collaborators. (No password required).
+No cert? No peeking.</dd>
+</dl>
+
+</div>
+
+
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1N7TrhAePo2sNeVeoNViKpnn"
+publishable-key="pk_live_51J5dRnAePo2sNeVermTe6fkJ1YNE3Ymfu2Q9gjwrqwVLLlBpFEll53QybAINSzBRJhfSq1XVVXTwTHGYPatZ5suh00dDfUtw01">
+</stripe-pricing-table>
+
+</main>
+
+
+        </div>
+        
+
+            <!-- Optional JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+            
+        
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
+  </div>
+</footer>
+
+    </body>
+</html>
