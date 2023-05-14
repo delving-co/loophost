@@ -1,0 +1,34 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "fling-hub"
+version = "0.1.1"
+description = "Loophost for a better local dev"
+authors = [
+    "Joshua McKenty <jmckenty@gmail.com>",
+    "Anouk Ruhaak <anoukruhaak@gmail.com>",
+]
+readme = "README.md"
+include = [{ path = "VERSION" }, { path = "README.md" }, 
+    { path = "fling_hub/templates" },]
+packages = [
+    { include = "fling_hub" },
+]
+
+[tool.poetry.urls]
+homepage = "https://fling.dev"
+documentation = "https://readthedocs.org/fling-hub"
+repository = "https://github.com/delving-co/fling-hub.git"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gevent = "*"
+uwsgi = "*"
+fling-start = "*"
+certbot = "*"
+flask = "*"

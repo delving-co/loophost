@@ -9,15 +9,16 @@ from flask import Flask, request, render_template, redirect
 
 
 config = None
-with open("loophost.json") as appjson:
+with open("/etc/flingdev/loophost.json") as appjson:
     config = json.loads(appjson.read())
 
 
-logo = None
-logo_path = "logo-hc.txt"
-with open(logo_path, "r") as logo_file:
-    logo = logo_file.read()
+# logo = None
+# logo_path = "logo-hc.txt"
+# with open(logo_path, "r") as logo_file:
+#     logo = logo_file.read()
 
+logo = "FLING"
 
 admin = Flask(__name__, static_url_path="/dontdoit")
 
