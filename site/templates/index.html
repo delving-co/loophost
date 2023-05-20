@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% block headline %}
+<h1>Welcome to loophost.</h1>
+{% endblock%}
+
 {% block content %}
 {{ super() }}
 <main >
 
-<div class="container m-5 font-monospace">
-<h1>Welcome to loophost.</h1>
+<div class="container mx-5 mt-2 mb-5 font-monospace">
 <dl>
 <dt>WHAT:</dt> 
 <dd>Turnkey localhost management for students, freelancers, agencies and development teams of all sizes.</dd>
@@ -25,11 +28,11 @@ Read on for <a href="/tech">more of the technical details</a>.
 </div>
 
 <div class="m-0 p-3 row align-items-center" style="background-color: #ddd;">
-    <label for="curlline" class="col-sm-2 col-form-label fw-bold text-success fs-3 text-end">FREE INSTALL</label>
-    <div class="col-sm-8">
+    <label for="curlline" class="col col-xs-12 col-sm-3 fw-bold text-success fs-3 text-end">FREE INSTALL</label>
+    <div class="col">
       <input type="text" onclick="clipReady()"; readonly class="form-control input-lg" id="curlline" value="curl https://fling.dev/install.sh | bash">
     </div>
-    <div class="col-sm-2">
+    <div class="col col-xs-1 col-md-2 col-lg-3">
     <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success" value="Copy!"/>
     </div>
 </div>

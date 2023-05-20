@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% block headline %}<h1>Loophost: Technical Details</h1>{% endblock %}
 {% block content %}
 {{ super() }}
 <main >
 
-<div class="container m-5 font-monospace">
-<h1>Loophost: Technical Details</h1>
+<div class="container mx-5 font-monospace">
+
 <dl>
 <dt>How is it different?</dt> 
 <dd>Supports unix domain sockets AND network ports. This makes it CRAZY FAST (about 3 times faster for the average web app)</dd>
@@ -19,7 +20,7 @@ you can use it to develop in any language and framework</dd>
 <dd>Websockets? Yep.</dd>
 <dd>Running in debug mode? Absolutely. Breakpoints work just as you would expect.</dd>
 <dd>How many apps can I have running? We have no idea, let's find out together.</dd>
-<dd>Sharing this with my team or using it for mobile dev? <a href="/upgrade">Time to upgrade.</a></br>
+<dd>Sharing this with my team or using it for mobile dev? <a href="/upgrade.html">Time to upgrade.</a></br>
 </dl>
 </div>
 

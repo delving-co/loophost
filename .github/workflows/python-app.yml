@@ -25,7 +25,7 @@ jobs:
         cd site && python freeze.py
     - name: CNAME file
       run: |
-          echo "fling.dev" > ./site/build/CNAME
+          echo "loophost.dev" > ./site/build/CNAME
     - name: Push
       uses: s0/git-publish-subdir-action@develop
       env:

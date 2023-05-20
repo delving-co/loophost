@@ -18,12 +18,12 @@ def main_index():
     return render_template("index.html")
 
 
-@app.route("/upgrade")
+@app.route("/upgrade.html")
 def upgrade():
     return render_template("upgrade.html")
 
 
-@app.route("/tech")
+@app.route("/tech.html")
 def tech():
     return render_template("tech.html")
 
