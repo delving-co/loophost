@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<main >
+
+<div class="container m-5 font-monospace">
+<h1>Loophost: Technical Details</h1>
+<dl>
+<dt>How is it different?</dt> 
+<dd>Supports unix domain sockets AND network ports. This makes it CRAZY FAST (about 3 times faster for the average web app)</dd>
+<dd>No config files. Literally EVERYTHING is configured from within the web admin, and it reloads in real time.</dd>
+<dd>Real-world certificates. No "snake-oil", no "self-signed", no "add to your trust store".</dd>
+<dt>How is it the same?</dt>
+<dd>Open Source. Everything we trust in the modern web stack is open source, and loophost is no exception.</dd>
+<dd>Language-agnostic. While loophost is built to be super easy for Python developers to install, 
+you can use it to develop in any language and framework</dd>
+
+<dt>WHAT ABOUT...</dt>
+<dd>Websockets? Yep.</dd>
+<dd>Running in debug mode? Absolutely. Breakpoints work just as you would expect.</dd>
+<dd>How many apps can I have running? We have no idea, let's find out together.</dd>
+<dd>Sharing this with my team or using it for mobile dev? <a href="/upgrade">Time to upgrade.</a></br>
+</dl>
+</div>
+
+
+</main>
+
+{% endblock %}

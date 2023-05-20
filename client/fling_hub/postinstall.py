@@ -14,9 +14,13 @@ TARGET_DIR = pathlib.Path(pathlib.Path.home(), ".flingdev")
 PYEX = sys.executable
 HUBDIR = os.path.dirname(os.path.realpath(fling_hub.__file__))
 USERNAME = None
+if os.path.exists(pathlib.Path(TARGET_DIR, "flinguser.txt")):
+    with open(pathlib.Path(TARGET_DIR, "flinguser.txt"), "r") as userfile:
+        USERNAME = userfile.read()
 
 
 def restart_as_sudo():
+    global USERNAME
     print(
         "Switching to root user to install web services (you will be prompted for your password)"
     )
@@ -29,6 +33,7 @@ def restart_as_sudo():
         cwd=TARGET_DIR,
     )
     print("All finished.")
+    run(f"open 'https://{USERNAME}.fling.dev'")
     sys.exit()
 
 

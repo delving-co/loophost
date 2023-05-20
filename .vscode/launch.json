@@ -9,8 +9,9 @@
             "type": "python",
             "request": "launch",
             "module": "flask",
+            "cwd": "${workspaceFolder}/site",
             "env": {
-                "FLASK_APP": "site/app.py",
+                "FLASK_APP": "app.py",
                 "FLASK_DEBUG": "1"
             },
             "args": [

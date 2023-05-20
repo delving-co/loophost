@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<main >
+
+<div class="container m-5 font-monospace">
+<h1>Welcome to loophost.</h1>
+<dl>
+<dt>WHAT:</dt> 
+<dd>Turnkey localhost management for students, freelancers, agencies and development teams of all sizes.</dd>
+
+<dt>WHY:</dt> 
+<dd>Because it's 2023, and <mark>friends don't let friends run without SSL</mark>.</dd>
+
+<dt>HOW:</dt> 
+<dd>Claim a username with your GitHub credentials, and we'll do the rest.<br/>
+Specifically, we'll generate a private key (<em>that never leaves your computer</em>) and set up
+DNS records and SSL certificates for *.&lt;github-username&gt;.fling.dev.<br/>
+
+When you visit <span class="text-primary fw-bold">https://<span class="text-success text-decoration-underline">yourapp</span>.username.fling.dev</span>, you'll be able to choose any locally
+running web app (in any language, and on any port or web socket) to bind to that name.</dd>
+
+Read on for <a href="/tech">more of the technical details</a>.
+</dl>
+</div>
+
+<div class="m-0 p-3 row align-items-center" style="background-color: #ddd;">
+    <label for="curlline" class="col-sm-2 col-form-label fw-bold text-success fs-3 text-end">FREE INSTALL</label>
+    <div class="col-sm-8">
+      <input type="text" onclick="clipReady()"; readonly class="form-control input-lg" id="curlline" value="curl https://fling.dev/install.sh | bash">
+    </div>
+    <div class="col-sm-2">
+    <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success" value="Copy!"/>
+    </div>
+</div>
+
+</main>
+
+{% endblock %}

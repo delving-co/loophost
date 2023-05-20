@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<main >
+
+<div class="container m-5 font-monospace">
+<h1>Ready to leave localhost? Time to upgrade.</h1>
+
+<dl>
+<dt>MOBILE DEV</dt> 
+
+<dd>Building mobile apps means sharing your APIs from your laptop, to your Android, your iPhone, 
+and the rest of your team. Once you've upgraded, you can simply flip the "sharing" toggle on
+for any local app, and we'll TUNNEL traffic from the public internet to your local machine.</dd>
+
+<dt>SECURE SHARING (COMING SOON!):</dt> 
+<dd>Not ready to share with EVERYONE in the world? Enable "secured" sharing,
+and you can issue individual certificates to each of your collaborators. (No password required).
+No cert? No peeking.</dd>
+</dl>
+
+</div>
+
+
+{% include "partials/pricingtable.html" %}
+
+<h3 class="text-center">Not so keen on paying for this? No worries, the basic version is <a href="/">free forever.</a></h3>
+
+</main>
+
+{% endblock %}

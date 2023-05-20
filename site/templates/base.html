@@ -1,0 +1,56 @@
+{% extends "start/base.html" %}
+{% block title %}fling.dev: Local software development with Loophosting{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+
+dl, dd {
+    padding-left: 1em;
+}
+dt {
+    font-size: 1.2em;
+}
+
+</style>
+<script>
+
+const clipReady = () => {
+  navigator.clipboard.writeText("curl https://fling.dev/install.sh | bash");
+  document.getElementById("copyButton").value = "Copied!";
+}
+</script>
+{% endblock %}
+
+{% block body %}
+<body class="d-flex flex-column h-100">
+<div class="container">
+<div class="row justify-content-end p-0 m-0">
+<img src="/static/fling-logo-light.png" style="max-width: 350px;" class="float-right"/>
+</div></div>
+    <div id="maincontent" class="d-flex flex-column h-100">
+
+{% block content %}
+{{ super() }}
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+  <div class="row justify-content-between">
+    <div class="col col-lg-3 text-end">
+        <a href="/">Home</a>
+        <a href="/tech">Technology</a>
+        <a href="/upgrade">Upgrade</a>
+        <a href="https://github.com/10in30/fling-hub">OSS Repo</a>
+    </div>
+    <div class="col col-lg-3 text-end">
+        <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+</div>
+</body>
+{% endblock %}
+

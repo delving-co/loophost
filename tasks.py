@@ -19,9 +19,9 @@ def clean(c, docs=False, bytecode=False, extra=''):
 @task(pre=[clean])
 def build(c, docs=False):
     c.run("mkdir -p dist")
-    for package in packages:
-        with c.cd(package):
-            c.run("poetry build")
     with c.cd("client/loophost"):
         c.run('go build -ldflags="-extldflags=-static" -tags osusergo,netgo -v')
         c.run("mv loophost ../fling_hub/loophost")
+    for package in packages:
+        with c.cd(package):
+            c.run("poetry build")
