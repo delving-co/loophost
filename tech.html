@@ -41,11 +41,18 @@ const clipReady = () => {
     </head>
     
 <body class="d-flex flex-column h-100">
-<div class="container">
-<div class="row justify-content-end p-0 m-0">
-<img src="/static/fling-logo-light.png" style="max-width: 350px;" class="float-right"/>
-</div></div>
     <div id="maincontent" class="d-flex flex-column h-100">
+
+    <div class="container">
+      <div class="row align-items-center justify-content-between p-0 m-2">
+        <div class="col col-lg-10">
+          <h1>Loophost: Technical Details</h1>
+        </div>
+        <div class="col col-lg-2">
+          <img src="/static/logo-square.png" style="max-width: 150px;"/>
+        </div>
+      </div>
+    </div>
 
 
 
@@ -56,31 +63,26 @@ const clipReady = () => {
 
 <main >
 
-<div class="container m-5 font-monospace">
-<h1>Ready to leave localhost? Time to upgrade.</h1>
+<div class="container mx-5 font-monospace">
 
 <dl>
-<dt>MOBILE DEV</dt> 
+<dt>How is it different?</dt> 
+<dd>Supports unix domain sockets AND network ports. This makes it CRAZY FAST (about 3 times faster for the average web app)</dd>
+<dd>No config files. Literally EVERYTHING is configured from within the web admin, and it reloads in real time.</dd>
+<dd>Real-world certificates. No "snake-oil", no "self-signed", no "add to your trust store".</dd>
+<dt>How is it the same?</dt>
+<dd>Open Source. Everything we trust in the modern web stack is open source, and loophost is no exception.</dd>
+<dd>Language-agnostic. While loophost is built to be super easy for Python developers to install, 
+you can use it to develop in any language and framework</dd>
 
-<dd>Building mobile apps means sharing your APIs from your laptop, to your Android, your iPhone, 
-and the rest of your team. Once you've upgraded, you can simply flip the "sharing" toggle on
-for any local app, and we'll TUNNEL traffic from the public internet to your local machine.</dd>
-
-<dt>SECURE SHARING (COMING SOON!):</dt> 
-<dd>Not ready to share with EVERYONE in the world? Enable "secured" sharing,
-and you can issue individual certificates to each of your collaborators. (No password required).
-No cert? No peeking.</dd>
+<dt>WHAT ABOUT...</dt>
+<dd>Websockets? Yep.</dd>
+<dd>Running in debug mode? Absolutely. Breakpoints work just as you would expect.</dd>
+<dd>How many apps can I have running? We have no idea, let's find out together.</dd>
+<dd>Sharing this with my team or using it for mobile dev? <a href="/upgrade.html">Time to upgrade.</a></br>
 </dl>
-
 </div>
 
-
-<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-<stripe-pricing-table pricing-table-id="prctbl_1N7TrhAePo2sNeVeoNViKpnn"
-publishable-key="pk_live_51J5dRnAePo2sNeVermTe6fkJ1YNE3Ymfu2Q9gjwrqwVLLlBpFEll53QybAINSzBRJhfSq1XVVXTwTHGYPatZ5suh00dDfUtw01">
-</stripe-pricing-table>
-
-<h3 class="text-center">Not so keen on paying for this? No worries, the basic version is <a href="/">free forever.</a></h3>
 
 </main>
 
@@ -96,14 +98,14 @@ publishable-key="pk_live_51J5dRnAePo2sNeVermTe6fkJ1YNE3Ymfu2Q9gjwrqwVLLlBpFEll53
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">
   <div class="row justify-content-between">
-    <div class="col col-lg-3 text-end">
+    <div class="col col-12 col-lg-3 text-end">
         <a href="/">Home</a>
-        <a href="/tech">Technology</a>
-        <a href="/upgrade">Upgrade</a>
+        <a href="/tech.html">Technology</a>
+        <a href="/upgrade.html">Upgrade</a>
         <a href="https://github.com/10in30/fling-hub">OSS Repo</a>
     </div>
-    <div class="col col-lg-3 text-end">
-        <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
+    <div class="col col-12 col-lg-3 text-end">
+        <span class="text-muted">Another fun project from <a href="https://fling.dev/">fling</a>.</span>
     </div>
   </div>
 </footer>
