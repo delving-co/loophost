@@ -1,4 +1,4 @@
 flask
-fling-start
+fling-start>=0.1.12
 Frozen-Flask
 invoke
