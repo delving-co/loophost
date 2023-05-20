@@ -6,6 +6,7 @@ TARGET_DIR=~/.flingdev
 
 pip install fling-cli fling-hub uwsgi
 HUBDIR=`python -c "import os; import fling_hub; print(os.path.dirname(os.path.realpath(fling_hub.__file__)))"`
+PYEX=`python -c "import sys; print (sys.executable)"`
 
 mkdir -p $TARGET_DIR/certs
 pushd $TARGET_DIR
@@ -36,8 +37,8 @@ fi
 # TODO(DEAL WITH MULTIPLE USERS)
 cp $HUBDIR/loophost.plist.template ./
 cp $HUBDIR/hub.plist.template ./
-sed -e "s@\${USERNAME}@$USERNAME@" -e "s@\${CWD}@$CWD@" -e "s@\${HUBDIR}@$HUBDIR@" loophost.plist.template | sudo tee /Library/LaunchDaemons/dev.fling.hub.local.plist
-sed -e "s@\${USERNAME}@$USERNAME@" -e "s@\${CWD}@$CWD@" -e "s@\${HUBDIR}@$HUBDIR@" hub.plist.template | sudo tee /Library/LaunchDaemons/dev.fling.hub.plist
+sed -e "s@\${USERNAME}@$USERNAME@" -e "s@\${PYEX}@$PYEX@" -e "s@\${CWD}@$CWD@" -e "s@\${HUBDIR}@$HUBDIR@" loophost.plist.template | sudo tee /Library/LaunchDaemons/dev.fling.hub.local.plist
+sed -e "s@\${USERNAME}@$USERNAME@" -e "s@\${PYEX}@$PYEX@" -e "s@\${CWD}@$CWD@" -e "s@\${HUBDIR}@$HUBDIR@" hub.plist.template | sudo tee /Library/LaunchDaemons/dev.fling.hub.plist
 sudo launchctl load /Library/LaunchDaemons/dev.fling.hub.local.plist
 sudo launchctl load /Library/LaunchDaemons/dev.fling.hub.plist
 
