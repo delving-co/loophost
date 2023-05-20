@@ -28,9 +28,9 @@ homepage = "https://fling.dev"
 documentation = "https://readthedocs.org/fling-hub"
 repository = "https://github.com/delving-co/fling-hub.git"
 
-[tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
-setuptools = "*"
+# [tool.poetry.group.dev.dependencies]
+# black = "^23.3.0"
+# setuptools = "*"
 
 [tool.poetry.dependencies]
 python = "^3.9"
