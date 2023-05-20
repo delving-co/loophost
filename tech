@@ -57,35 +57,25 @@ const clipReady = () => {
 <main >
 
 <div class="container m-5 font-monospace">
-<h1>Welcome to loophost.</h1>
+<h1>Loophost: Technical Details</h1>
 <dl>
-<dt>WHAT:</dt> 
-<dd>Turnkey localhost management for students, freelancers, agencies and development teams of all sizes.</dd>
+<dt>How is it different?</dt> 
+<dd>Supports unix domain sockets AND network ports. This makes it CRAZY FAST (about 3 times faster for the average web app)</dd>
+<dd>No config files. Literally EVERYTHING is configured from within the web admin, and it reloads in real time.</dd>
+<dd>Real-world certificates. No "snake-oil", no "self-signed", no "add to your trust store".</dd>
+<dt>How is it the same?</dt>
+<dd>Open Source. Everything we trust in the modern web stack is open source, and loophost is no exception.</dd>
+<dd>Language-agnostic. While loophost is built to be super easy for Python developers to install, 
+you can use it to develop in any language and framework</dd>
 
-<dt>WHY:</dt> 
-<dd>Because it's 2023, and <mark>friends don't let friends run without SSL</mark>.</dd>
-
-<dt>HOW:</dt> 
-<dd>Claim a username with your GitHub credentials, and we'll do the rest.<br/>
-Specifically, we'll generate a private key (<em>that never leaves your computer</em>) and set up
-DNS records and SSL certificates for *.&lt;github-username&gt;.fling.dev.<br/>
-
-When you visit <span class="text-primary fw-bold">https://<span class="text-success text-decoration-underline">yourapp</span>.username.fling.dev</span>, you'll be able to choose any locally
-running web app (in any language, and on any port or web socket) to bind to that name.</dd>
-
-Read on for <a href="/tech">more of the technical details</a>.
+<dt>WHAT ABOUT...</dt>
+<dd>Websockets? Yep.</dd>
+<dd>Running in debug mode? Absolutely. Breakpoints work just as you would expect.</dd>
+<dd>How many apps can I have running? We have no idea, let's find out together.</dd>
+<dd>Sharing this with my team or using it for mobile dev? <a href="/upgrade">Time to upgrade.</a></br>
 </dl>
 </div>
 
-<div class="m-0 p-3 row align-items-center" style="background-color: #ddd;">
-    <label for="curlline" class="col-sm-2 col-form-label fw-bold text-success fs-3 text-end">FREE INSTALL</label>
-    <div class="col-sm-8">
-      <input type="text" onclick="clipReady()"; readonly class="form-control input-lg" id="curlline" value="curl https://fling.dev/install.sh | bash">
-    </div>
-    <div class="col-sm-2">
-    <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success" value="Copy!"/>
-    </div>
-</div>
 
 </main>
 
