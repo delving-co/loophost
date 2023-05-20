@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "fling-hub"
 version = "0.1.3"
-description = "Loophost for a better local dev"
+description = "Loophost: for a better local dev"
 authors = [
     "Joshua McKenty <jmckenty@gmail.com>",
     "Anouk Ruhaak <anoukruhaak@gmail.com>",
@@ -16,7 +16,7 @@ include = [{ path = "VERSION" },
             { path = "setup.py" }, 
             { path = "build.py" }, 
             { path = "fling_hub/templates" }, 
-            { path = "fling_hub/loophost/*"}, 
+            { path = "fling_hub/loophost"}, 
             { path = "fling_hub/*.plist.template"}] 
 packages = [
     { include = "fling_hub" },
@@ -28,9 +28,9 @@ homepage = "https://fling.dev"
 documentation = "https://readthedocs.org/fling-hub"
 repository = "https://github.com/delving-co/fling-hub.git"
 
-# [tool.poetry.group.dev.dependencies]
-# black = "^23.3.0"
-# setuptools = "*"
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+setuptools = "*"
 
 [tool.poetry.dependencies]
 python = "^3.9"
