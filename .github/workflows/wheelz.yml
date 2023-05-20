@@ -24,8 +24,8 @@ jobs:
       - name: Build wheels
         run: cd client && python -m cibuildwheel --output-dir wheelhouse
         # to supply options, put them in 'env', like:
-        # env:
-        #   CIBW_SOME_OPTION: value
+        env:
+           CIBW_BUILD: cp39-* cp310-* cp311-*
 
     #   - uses: actions/upload-artifact@v3
     #     with:
