@@ -1,20 +1,50 @@
+{% extends "start/base.html" %}
+{% block title %}fling.dev: Local software development with Loophosting{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+
+body {
+    font-family: monospace;
+    background-color: black;
+    color: green;
+}
+</style
+{% endblock %}
+
+{% block body %}
+<body class="d-flex flex-column h-100">
+
+{% include "partials/upgrade.html" %}
+
+{% block content %}
+{{ super() }}
+<main class="flex-shrink-0">
+
+<div class="container m-5 font-monospace">
+<img src="/static/fling-logo-dark.png" width="400"/>
+
 <h1>Welcome to your LoopHost</h1>
 
-<div>
-        Your local apps:<ul>
-        {% if not apps %}
-            <h2>No local apps set up yet!</h2>
-        {% endif %}
-        {% for x in apps %}
-        <li>
-                <a href="https://{{x}}.{{fqdn}}">{{x}}</a>
-                [ running at {{apps[x]}} ]
-                <a href="/unbind?project={{x}}">X</a>
-        </li>
-        {% endfor %}
-        </ul>
-        </div>
+{% include "partials/apptable.html" %}
     
 <h2>Add a new application</h2>
-App name (no spaces, please): <input id="new_app_field" type="text" name="new_app"/><br/>
-<input type="button" onclick="window.location.href = `https://${document.getElementById('new_app_field').value}.{{fqdn}}`;" value="Set it up"/>
+<form method="get" onsubmit="event.preventDefault(); window.location.href = `https://${document.getElementById('new_app_field').value}.{{fqdn}}`;">
+App name (no spaces, please): <input id="new_app_field" type="text" name="new_app"/> 
+<input type="submit"  value="Set it up"/>
+</form>
+
+</main>
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
+  </div>
+</footer>
+{% endblock %}
+</body>
+{% endblock %}
+

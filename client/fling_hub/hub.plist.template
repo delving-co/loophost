@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>dev.fling.hub</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>${HUBDIR}/loophost</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>LOOPHOST_DATA_PATH</key>
+        <string>${CWD}</string>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string>${CWD}</string>   
+        <key>StandardInPath</key>
+        <string>/tmp/flinghub.stdin</string>
+        <key>StandardOutPath</key>
+        <string>/tmp/flinghub.stdout</string>
+        <key>StandardErrorPath</key>
+        <string>/tmp/flinghub.stderr</string>
+    <key>UserName</key>
+    <string>root</string>
+</dict>
+</plist>

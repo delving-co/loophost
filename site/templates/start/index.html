@@ -20,6 +20,11 @@ const clipReady = () => {
 }
 </script>
 {% endblock %}
+
+{% block body %}
+<body class="d-flex flex-column h-100">
+    <div id="maincontent">
+
 {% block content %}
 {{ super() }}
 <main >
@@ -87,7 +92,6 @@ publishable-key="pk_live_51J5dRnAePo2sNeVermTe6fkJ1YNE3Ymfu2Q9gjwrqwVLLlBpFEll53
 </main>
 
 {% endblock %}
-
 {% block scripts %}
 {{ super() }}
 <footer class="footer mt-auto py-3 bg-light">
@@ -96,3 +100,7 @@ publishable-key="pk_live_51J5dRnAePo2sNeVermTe6fkJ1YNE3Ymfu2Q9gjwrqwVLLlBpFEll53
   </div>
 </footer>
 {% endblock %}
+</div>
+</body>
+{% endblock %}
+

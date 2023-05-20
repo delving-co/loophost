@@ -1,0 +1,30 @@
+<div>
+        Your local apps:<br/>
+        {% if not apps %}
+            <h2>No local apps set up yet!</h2>
+        {% else %}
+        <div class="table-responsive">
+                <table class="table-dark table table-bordered table-striped table-hover">
+                <thead>
+                        <tr>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Share?</th>
+                        <th scope="col">Unbind?</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+        {% for x in apps %}
+        <tr>
+                <th scope="row"><a href="https://{{x}}.{{fqdn}}">{{x}}</a></th>
+                <td>{{apps[x]}}</td>
+                <td><a href="/sharing?project={{x}}">{% if sharing[x] %}public {% else %}private {% endif %}</td>
+                <td><a href="/unbind?project={{x}}">X</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+        {% endif %}
+        </ul>
+</div>
