@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "poetry>=0.12", "setuptools", "wheel", "setuptools-cpp", "setuptools-golang"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
@@ -13,12 +13,15 @@ authors = [
 readme = "README.md"
 include = [{ path = "VERSION" }, 
             { path = "README.md" }, 
+            { path = "setup.py" }, 
+            { path = "build.py" }, 
             { path = "fling_hub/templates" }, 
-            { path = "fling_hub/loophost"}, 
+            { path = "fling_hub/loophost/*"}, 
             { path = "fling_hub/*.plist.template"}] 
 packages = [
     { include = "fling_hub" },
 ]
+build = "build.py"
 
 [tool.poetry.urls]
 homepage = "https://fling.dev"
@@ -27,9 +30,11 @@ repository = "https://github.com/delving-co/fling-hub.git"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
+setuptools = "*"
 
 [tool.poetry.dependencies]
 python = "^3.9"
 fling-start = "*"
+fling-cli = "0.1.5"
 certbot = "*"
 flask = "*"

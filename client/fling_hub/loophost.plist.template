@@ -8,8 +8,9 @@
     <true/>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/env python</string>
-        <string>-m fling_hub.flingroute</string>
+        <string>${PYEX}</string>
+        <string>-m</string>
+        <string>fling_hub.flingroute</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
