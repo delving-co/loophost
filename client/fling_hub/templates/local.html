@@ -7,15 +7,27 @@ endblock %} {% block head %} {{ super() }}
     color: green;
   }
 </style>
-{% endblock %} {% block body %}
-<body class="d-flex flex-column h-100">
-  {% block content %} {{ super() }}
-  <main class="flex-shrink-0">
-    <div class="container m-5 font-monospace">
-      <img src="/static/fling-logo-dark.png" width="400" />
+{% endblock %} 
+{% block body %}
 
-      <br />
-      <h3>Configuration for "{{project}}"</h3>
+<body class="d-flex flex-column h-100">
+
+<main class="flex-shrink-0 d-flex flex-column h-100">
+
+    <div class="container mt-4">
+      <div class="row align-items-center justify-content-between p-0 pt-4 m-2">
+        <div class="col col-lg-10">
+          {% block headline %}<h1>Configuration for "{{project}}"</h1>{% endblock %}
+        </div>
+        <div class="col col-lg-2">
+          <a href="https://{{fqdn}}"><img src="/static/logo-square.png" style="max-width: 150px;"/></a>
+        </div>
+      </div>
+    </div>
+
+  {% block content %} {{ super() }}
+
+  <div class="container m-5 font-monospace">
 
       {% if project not in apps %}
       We don't know where this app is running yet.<br /><br/>
