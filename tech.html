@@ -22,11 +22,13 @@
         
 <style>
 
-dl, dd {
-    padding-left: 1em;
-}
-dt {
-    font-size: 1.2em;
+@media only screen and (min-width: 900px) {
+  dl, dd {
+      padding-left: 1em;
+  }
+  dt {
+      font-size: 1.2em;
+  }
 }
 
 </style>
@@ -66,6 +68,11 @@ const clipReady = () => {
 <div class="container mx-5 font-monospace">
 
 <dl>
+<dt>Who is it for?</dt>
+<dd>Eventually, anyone writing things for the web - whether that's web applications, 
+static HTML websites, mobile apps, or low-level networking tools. For today, it's
+every developer who uses a Mac. (Windows and Linux support are coming soon.)</dd>
+
 <dt>How is it different?</dt> 
 <dd>Supports unix domain sockets AND network ports. This makes it CRAZY FAST (about 3 times faster for the average web app)</dd>
 <dd>No config files. Literally EVERYTHING is configured from within the web admin, and it reloads in real time.</dd>
@@ -92,7 +99,7 @@ you can use it to develop in any language and framework</dd>
             <!-- Optional JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-            <script defer data-domain="fling.dev" src="https://plausible.io/js/script.js"></script>
+            <script defer data-domain="loophost.dev" src="https://plausible.io/js/script.js"></script>
             
         
 <footer class="footer mt-auto py-3 bg-light">
