@@ -62,6 +62,11 @@ def admin_page(path):
         config["apps"][project] = request.form.get("application_port")
         with open("loophost.json", "w") as appjson:
             appjson.write(json.dumps(config))
+        return redirect(f"https://{project}.{'.'.join(fqdn)}")
+        # return redirect(f"""<html><head>
+        #                 <meta http-equiv="refresh" 
+        #                     content="2;URL='https://{project}.{'.'.join(fqdn)}'/>
+        #                 </head><body>Redirecting...</body></html>""")
     return render_template(
         "local.html",
         apps=config["apps"],

@@ -63,8 +63,7 @@ def authenticate_with_fling():
 def issue_certs():
     global USERNAME, TARGET_DIR
     print("Generating SSL certificates (this may take a minute)...")
-    run(
-        " ".join(
+    cmd = " ".join(
             [
                 "certbot",
                 "certonly",
@@ -78,9 +77,13 @@ def issue_certs():
                 "--authenticator=fling_authenticator",
                 f'-d "*.{USERNAME}.{LOOPHOST_DOMAIN}"',
                 f'-d "{USERNAME}.{LOOPHOST_DOMAIN}"',
+                "--force-renewal",
                 "--fling_authenticator-propagation-seconds=15",
             ]
-        ),
+        )
+    print(cmd)
+    run(
+        cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         stdin=subprocess.PIPE,
@@ -92,10 +95,13 @@ def issue_certs():
 
 def setup_launchd_scripts():
     global USERNAME, TARGET_DIR, HUBDIR, PYEX
-    if not os.path.exists(pathlib.Path(TARGET_DIR, "loophost.json")):
-        with open(pathlib.Path(TARGET_DIR, "loophost.json"), "w") as datafile:
-            data = {"apps": {}, "fqdn": f"{USERNAME}.{LOOPHOST_DOMAIN}"}
-            datafile.write(json.dumps(data))
+    apps = {}
+    if os.path.exists(pathlib.Path(TARGET_DIR, "loophost.json")):
+        with open(pathlib.Path(TARGET_DIR, "loophost.json"), "r") as datafile:
+            apps = json.loads(datafile.read()).get("apps")
+    with open(pathlib.Path(TARGET_DIR, "loophost.json"), "w") as datafile:
+        data = {"apps": apps, "fqdn": f"{USERNAME}.{LOOPHOST_DOMAIN}"}
+        datafile.write(json.dumps(data))
     shutil.copy2(pathlib.Path(HUBDIR, "loophost.plist.template"), TARGET_DIR)
     shutil.copy2(pathlib.Path(HUBDIR, "hub.plist.template"), TARGET_DIR)
 

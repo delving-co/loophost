@@ -52,7 +52,15 @@ endblock %} {% block head %} {{ super() }}
     </div>
   </main>
 
-  {% endblock %} {% block scripts %} {{ super() }}
+  {% endblock %} {% block scripts %} 
+  {{ super() }}
+  <script>
+  window.addEventListener("pageshow", function(event) {
+    if (event.persisted) {
+        window.location.reload(); 
+    }
+  });
+  </script>
   <footer class="footer mt-auto py-3 bg-light">
     <div class="container">
       <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>

@@ -24,7 +24,7 @@ def upgrade():
 
 
 @app.route("/update.html")
-def upgrade():
+def update():
     return render_template("update.html")
 
 
