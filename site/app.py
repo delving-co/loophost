@@ -6,7 +6,7 @@ from pprint import pprint
 
 print(start.__file__)
 
-domain_name = "fling.dev"
+domain_name = "loophost.dev"
 
 
 def main():
@@ -21,6 +21,11 @@ def main_index():
 @app.route("/upgrade.html")
 def upgrade():
     return render_template("upgrade.html")
+
+
+@app.route("/update.html")
+def upgrade():
+    return render_template("update.html")
 
 
 @app.route("/tech.html")

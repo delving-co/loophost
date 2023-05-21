@@ -10,6 +10,7 @@ import shutil
 from string import Template
 
 
+LOOPHOST_DOMAIN = "loophost.dev"
 TARGET_DIR = pathlib.Path(pathlib.Path.home(), ".flingdev")
 PYEX = sys.executable
 HUBDIR = os.path.dirname(os.path.realpath(fling_hub.__file__))
@@ -33,7 +34,7 @@ def restart_as_sudo():
         cwd=TARGET_DIR,
     )
     print("All finished.")
-    run(f"open 'https://{USERNAME}.fling.dev'")
+    run(f"open 'https://{USERNAME}.{LOOPHOST_DOMAIN}'")
     sys.exit()
 
 
@@ -73,10 +74,10 @@ def issue_certs():
                 "--non-interactive",
                 "--expand",
                 "--agree-tos",
-                "-m webmaster@fling.dev",
+                f"-m webmaster@{LOOPHOST_DOMAIN}",
                 "--authenticator=fling_authenticator",
-                f'-d "*.{USERNAME}.fling.dev"',
-                f'-d "{USERNAME}.fling.dev"',
+                f'-d "*.{USERNAME}.{LOOPHOST_DOMAIN}"',
+                f'-d "{USERNAME}.{LOOPHOST_DOMAIN}"',
                 "--fling_authenticator-propagation-seconds=15",
             ]
         ),
@@ -93,7 +94,7 @@ def setup_launchd_scripts():
     global USERNAME, TARGET_DIR, HUBDIR, PYEX
     if not os.path.exists(pathlib.Path(TARGET_DIR, "loophost.json")):
         with open(pathlib.Path(TARGET_DIR, "loophost.json"), "w") as datafile:
-            data = {"apps": {}, "fqdn": f"{USERNAME}.fling.dev"}
+            data = {"apps": {}, "fqdn": f"{USERNAME}.{LOOPHOST_DOMAIN}"}
             datafile.write(json.dumps(data))
     shutil.copy2(pathlib.Path(HUBDIR, "loophost.plist.template"), TARGET_DIR)
     shutil.copy2(pathlib.Path(HUBDIR, "hub.plist.template"), TARGET_DIR)
