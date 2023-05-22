@@ -27,7 +27,7 @@ def post_install_one():
     create_update_loophost_json()
     register_tunnel(
         "flinghub",
-        pathlib.Path(HUBDIR, "loophost.plist.template"),
+        pathlib.Path(HUBDIR, "plist", "loophost.plist.template"),
         pathlib.Path(
             pathlib.Path.home(), "Library/LaunchAgents/dev.fling.hub.local.plist"
         ),
@@ -103,7 +103,7 @@ def create_update_loophost_json():
 def setup_launchd_scripts():
     register_tunnel(
         "flinghub",
-        pathlib.Path(HUBDIR, "hub.plist.template"),
+        pathlib.Path(HUBDIR, "plist", "hub.plist.template"),
         "/Library/LaunchDaemons/dev.fling.hub.plist",
     )
     print("All done.")

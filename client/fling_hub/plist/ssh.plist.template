@@ -9,6 +9,8 @@
         <string>ssh</string>
         <string>-F</string>
 	    <string>/Users/${LOCAL_USER}/.ssh/config</string>
+        <string>-o ServerAliveInterval=60</string>
+        <string>-o ExitOnForwardFailure=yes</string>
         <string>-o UserKnownHostsFile=/dev/null</string>
         <string>-o StrictHostKeyChecking=no</string>
         <string>-i</string>
@@ -26,8 +28,8 @@
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>${CWD}/loophost-tunnel-${PROJECT}.stdout</string>
+    <string>/tmp/loophost-tunnel-${PROJECT}.stdout</string>
     <key>StandardErrorPath</key>
-    <string>${CWD}/loophost-tunnel-${PROJECT}.stderr</string>
+    <string>/tmp/loophost-tunnel-${PROJECT}.stderr</string>
 </dict>
 </plist>

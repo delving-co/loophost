@@ -9,16 +9,24 @@
                         <tr>
                         <th scope="col">Project Name</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Share?</th>
+                        <th scope="col">Toggle Sharing</th>
                         <th scope="col">Unbind?</th>
                         </tr>
                         </thead>
                         <tbody>
         {% for x in apps %}
         <tr>
-                <th scope="row"><a href="https://{{x}}.{{fqdn}}">{{x}}</a></th>
+                <th scope="row"><a href="https://{{x}}.{{fqdn}}">{{x}}</a>&nbsp;&nbsp;
+                {% if share[x] %} <a href="https://{{x}}.{{config["tunnel"]}}">(shareable)</a>  {% endif %}
+                </th>
                 <td>{{apps[x]}}</td>
-                <td><a href="/share?project={{x}}">{% if share[x] %}share[x] {% else %}(share) {% endif %}</a></td>
+                <td>
+                        {% if config["tunnel"] %}
+                        <a href="/share?project={{x}}">{% if share[x] %}Disable {% else %}Enable {% endif %}</a>
+                        {% else %}
+                                <a href="https://loophost.dev/upgrade.html">Enable</a>
+                        {% endif %}
+                </td>
                 <td><a href="/unbind?project={{x}}">X</a></td>
         </tr>
         {% endfor %}

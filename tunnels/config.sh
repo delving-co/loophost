@@ -1,14 +1,20 @@
+ADMIN_CONSOLE_TOKEN=`uuidgen`
+echo $ADMIN_CONSOLE_TOKEN
+TUNNEL_DOMAIN="fling.team"
+TUNNEL_IP="34.102.104.118"
+
 gcloud compute instances \
     create-with-container sish \
     --zone="us-west2-a" \
     --tags="sish" \
-    --metadata=ssh-keys="`curl https://github.com/joshuamckenty.keys`" \
+    --metadata=ssh-keys="joshuamckenty:`curl https://loophost.dev/static/pushkey.pub`" \
     --container-mount-host-path="host-path=/mnt/stateful_partition/sish/ssl,mount-path=/ssl" \
     --container-mount-host-path="host-path=/mnt/stateful_partition/sish/keys,mount-path=/keys" \
     --container-mount-host-path="host-path=/mnt/stateful_partition/sish/pubkeys,mount-path=/pubkeys" \
     --container-image="antoniomika/sish:latest" \
     --machine-type="e2-micro" \
-    --container-arg="--domain=fling.team" \
+    --container-arg="--admin-console-token=$ADMIN_CONSOLE_TOKEN" \
+    --container-arg="--domain=$TUNNEL_DOMAIN" \
     --container-arg="--ssh-address=:2222" \
     --container-arg="--http-address=:80" \
     --container-arg="--https-address=:443" \
@@ -38,7 +44,4 @@ gcloud compute instances \
     --container-arg="--https-ondemand-certificate-email=jmckenty@gmail.com" \
     --container-arg="--idle-connection=false" \
     --container-arg="--ping-client-timeout=2m" \
-    --address="34.102.104.118"
-
-
-ssh -p 2222 -R poet:443:localhost:443 joshuamckenty.fling.team
+    --address="$TUNNEL_IP"

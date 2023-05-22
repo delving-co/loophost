@@ -17,7 +17,7 @@ include = [{ path = "VERSION" },
             { path = "build.py" }, 
             { path = "fling_hub/templates" }, 
             { path = "fling_hub/loophost"}, 
-            { path = "fling_hub/*.plist.template"}] 
+            { path = "fling_hub/plist/*.plist.template"}] 
 packages = [
     { include = "fling_hub" },
 ]

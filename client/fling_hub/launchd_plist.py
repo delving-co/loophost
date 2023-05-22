@@ -1,4 +1,3 @@
-import os
 import pathlib
 import shutil
 from fling_hub import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, TARGET_DIR, PYEX, HUBDIR, USERNAME
