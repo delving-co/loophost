@@ -3,30 +3,30 @@ requires = ["poetry-core", "poetry>=0.12", "setuptools", "wheel", "setuptools-cp
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "fling-hub"
-version = "0.1.7"
+name = "loophost"
+version = "0.2.1"
 description = "Loophost: for a better local dev"
 authors = [
     "Joshua McKenty <jmckenty@gmail.com>",
-    "Anouk Ruhaak <anoukruhaak@gmail.com>",
 ]
 readme = "README.md"
 include = [{ path = "VERSION" }, 
             { path = "README.md" }, 
             { path = "setup.py" }, 
             { path = "build.py" }, 
-            { path = "fling_hub/templates" }, 
-            { path = "fling_hub/loophost"}, 
-            { path = "fling_hub/plist/*.plist.template"}] 
+            { path = "loophost/templates" }, 
+            { path = "loophost/static" }, 
+            { path = "loophost/loopproxy"}, 
+            { path = "loophost/plist/*.plist.template"}] 
 packages = [
-    { include = "fling_hub" },
+    { include = "loophost" },
 ]
 build = "build.py"
 
 [tool.poetry.urls]
-homepage = "https://fling.dev"
-documentation = "https://readthedocs.org/fling-hub"
-repository = "https://github.com/delving-co/fling-hub.git"
+homepage = "https://loophost.dev"
+documentation = "https://readthedocs.org/loophost"
+repository = "https://github.com/delving-co/loophost.git"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

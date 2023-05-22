@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/10in30/loophost/reverseproxy"
+	"github.com/delving-co/loophost/loopproxy/reverseproxy"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gorilla/mux"
 )

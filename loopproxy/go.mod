@@ -1,4 +1,4 @@
-module github.com/10in30/loophost
+module github.com/delving-co/loophost/loopproxy
 
 go 1.19
 

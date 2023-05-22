@@ -6,7 +6,7 @@
     <string>dev.fling.hub</string>
     <key>ProgramArguments</key>
     <array>
-        <string>${HUBDIR}/loophost</string>
+        <string>${HUBDIR}/loopproxy</string>
     </array>
     <key>EnvironmentVariables</key>
     <dict>

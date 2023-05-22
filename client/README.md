@@ -1,2 +1,2 @@
-# Fling-Hub
-### The loophost experience you always wanted
+# Loophost
+### The secure local web dev experience you always wanted

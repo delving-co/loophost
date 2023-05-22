@@ -1,6 +1,6 @@
 import pathlib
 import shutil
-from fling_hub import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, TARGET_DIR, PYEX, HUBDIR, USERNAME
+from loophost import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, TARGET_DIR, PYEX, HUBDIR, USERNAME
 from string import Template
 from subprocess import run
 

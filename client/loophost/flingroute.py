@@ -1,9 +1,7 @@
-"""Offloading proxy.
-This runs inside the main uWSGI process and sends offload headers
-for each registered app. For unregistered apps, it displays a
-web-based administration screen.
-
-Must be run within the .flingdev folder in the user's home directory.
+"""Loophost administration web app.
+This runs as a launchd-dispatched python web app.
+It displays a web-based administration screen.
+Must be run with a CWD of the .flingdev folder in the user's home directory.
 """
 
 import os
@@ -13,8 +11,8 @@ from fling.start import start
 from flask import Flask, request, render_template, redirect
 from flask_bootstrap import Bootstrap5
 from flask_caching import Cache
-from fling_hub.launchd_plist import register_tunnel, unregister_tunnel
-from fling_hub import HUBDIR, __version__, DATA_FILE_PATH
+from loophost.launchd_plist import register_tunnel, unregister_tunnel
+from loophost import HUBDIR, __version__, DATA_FILE_PATH
 from lastversion import has_update
 from fling_cli import get_fling_client
 from fling_client.api.loophost import expose_app_expose_app_put
@@ -32,7 +30,7 @@ admin.register_blueprint(start, url_prefix="/start")  # unused but I need the te
 
 @cache.cached(timeout=3600)
 def latest_version():
-    return has_update(repo="fling-hub", at="pip", current_version=__version__)
+    return has_update(repo="loophost", at="pip", current_version=__version__)
 
 
 @admin.context_processor

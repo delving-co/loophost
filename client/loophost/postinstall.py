@@ -5,8 +5,8 @@ import pathlib
 import subprocess
 from subprocess import run
 from fling_cli.auth import gh_authenticate
-from fling_hub.launchd_plist import register_tunnel
-from fling_hub import (
+from loophost.launchd_plist import register_tunnel
+from loophost import (
     LOOPHOST_DOMAIN,
     TUNNEL_DOMAIN,
     TARGET_DIR,
@@ -115,7 +115,7 @@ def restart_as_sudo():
         "Switching to root user to install web services (you will be prompted for your password)"
     )
     run(
-        "sudo python3 -m fling_hub.postinstall",
+        "sudo python3 -m loophost.postinstall",
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
