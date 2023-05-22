@@ -35,8 +35,8 @@ setuptools = "*"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fling-start = "*"
-fling-cli = "0.1.5"
-certbot = "*"
-flask = "*"
-lastversion = "*"
+fling-start = "^0.1.6"
+fling-cli = "^0.1.5"
+certbot = "^2.6.0"
+flask = "^2.3.2"
+lastversion = "^2.4.15"
