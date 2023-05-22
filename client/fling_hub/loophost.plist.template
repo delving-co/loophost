@@ -4,8 +4,6 @@
 <dict>
     <key>Label</key>
     <string>dev.fling.hub.local</string>
-    <key>EnableGlobbing</key>
-    <true/>
     <key>ProgramArguments</key>
     <array>
         <string>${PYEX}</string>

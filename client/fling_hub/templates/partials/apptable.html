@@ -18,7 +18,7 @@
         <tr>
                 <th scope="row"><a href="https://{{x}}.{{fqdn}}">{{x}}</a></th>
                 <td>{{apps[x]}}</td>
-                <td><a href="/sharing?project={{x}}">{% if sharing[x] %}public {% else %}private {% endif %}</td>
+                <td><a href="/share?project={{x}}">{% if share[x] %}share[x] {% else %}(share) {% endif %}</a></td>
                 <td><a href="/unbind?project={{x}}">X</a></td>
         </tr>
         {% endfor %}

@@ -5,7 +5,7 @@ packages = ['client']
 @task
 def clean(c, docs=False, bytecode=False, extra=''):
     print("Cleaning build artifacts...")
-    patterns = ['dist', 'client/loophost/loophost', 'client/fling_hub/loophost']
+    patterns = ['dist', 'loopproxy/loophost', 'client/fling_hub/loophost']
     if docs:
         patterns.append('docs/_build')
     if bytecode:
@@ -19,9 +19,9 @@ def clean(c, docs=False, bytecode=False, extra=''):
 @task(pre=[clean])
 def build(c, docs=False):
     c.run("mkdir -p dist")
-    with c.cd("client/loophost"):
+    with c.cd("loopproxy"):
         c.run('go build -ldflags="-extldflags=-static" -tags osusergo,netgo -v')
-        c.run("mv loophost ../fling_hub/loophost")
+        c.run("mv loophost ../client/fling_hub/loophost")
     for package in packages:
         with c.cd(package):
             c.run("poetry build")
