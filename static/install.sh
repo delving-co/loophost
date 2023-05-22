@@ -10,5 +10,5 @@ if ! python3 -c 'import sys; assert sys.version_info >= (3,9)' > /dev/null; then
 fi
 
 
-python -m pip install fling-hub --upgrade
-python -m fling_hub.postinstall
+python -m pip install loophost --upgrade
+python -m loophost.postinstall
