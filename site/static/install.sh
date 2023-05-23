@@ -10,5 +10,5 @@ if ! python3 -c 'import sys; assert sys.version_info >= (3,9)' > /dev/null; then
 fi
 
 
-python -m pip install loophost --upgrade
-python -m loophost.postinstall
+python3 -m pip install loophost --upgrade
+python3 -m loophost.postinstall
