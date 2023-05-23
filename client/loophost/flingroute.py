@@ -67,7 +67,9 @@ def share():
         with open("tunnelkey", "w+") as privfile:
             privfile.write(priv)
         os.chmod("tunnelkey", 0o600)
-        expose_app_expose_app_put.sync(client=fling_client, app_name=project, ssh_public_key=pub)
+        expose_app_expose_app_put.sync(
+            client=fling_client, app_name=project, ssh_public_key=pub
+        )
 
     if project and project in config.get("share", {}):
         del config["share"][project]
@@ -96,8 +98,9 @@ def config_page(project):
         config=config,
         apps=config["apps"],
         share=config.get("share"),
-        project=project
+        project=project,
     )
+
 
 @admin.route("/", defaults={"path": ""}, methods=["GET", "POST"])
 @admin.route("/<path:path>", methods=["GET", "POST"])
@@ -112,7 +115,7 @@ def admin_page(path):
             fqdn=".".join(fqdn),
         )
     project = fqdn.pop(0)
-
+    return redirect(f"https://{config['fqdn']}/config/{project}")
 
 
 if __name__ == "__main__":
