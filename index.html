@@ -65,40 +65,87 @@ const clipReady = () => {
             
 
 
-<main >
+<main>
 
-<div class="container mx-5 mt-2 mb-5 font-monospace">
-<dl>
-<dt>WHAT:</dt> 
-<dd>Turnkey localhost management for students, freelancers, agencies and development teams of all sizes.</dd>
+  <div class="container mx-5 mt-2 mb-5 font-monospace row">
+    <div class="col col-md-2 col-sm-12"></div>
+    <div class="col col-md-10 col-sm-12">
+      <blockquote>It's 2023, and <mark>friends don't let friends run without SSL</mark>.</blockquote>
 
-<dt>WHY:</dt> 
-<dd>Because it's 2023, and <mark>friends don't let friends run without SSL</mark>.</dd>
+      <h2>Local web hosting for the 21st century</h2>
+      <p>
+        Similar to nginx or apache, Loophost allows you to use your laptop or desktop as a server.
+        Designed for REALLY BUSY PEOPLE, it makes it really fast and easy to:
+      </p>
 
-<dt>HOW:</dt> 
-<dd>Claim a username with your GitHub credentials, and we'll do the rest.<br/>
-Specifically, we'll generate a private key (<em>that never leaves your computer</em>) and set up
-DNS records and SSL certificates for *.&lt;username&gt;.loophost.dev.<br/>
+      <ul>
+        <li>Get a unique domain name for every local app you're working on
+        </li>
+        <li>Get a REAL WORLD SSL CERTIFICATE for each of those (for free)
+        </li>
+        <li>Connect to those apps over local network ports (like the 'localhost:5000' thing you've been doing)
+        </li>
+        <li>Connect over unix domain sockets (usually 2-3 TIMES FASTER than local network ports)</li>
+      </ul>
 
-Then, when you visit <span 
-  class="text-primary fw-bold">https://<span 
-  class="text-success text-decoration-underline">yourapp</span>.username.loophost.dev</span>, 
-you'll be able to choose any locally running web app (in any language, 
-and on any port or web socket) to bind to that name.</dd>
+      <p>This addresses a whole bunch of small, annoying everyday problems for developers:</p>
 
-</dl>
-Read on for <a href="/tech.html">more of the technical details</a>.
-</div>
+      <ul>
+        <li>You can build and test remote content (including from APIs and other components) without "mixed content"
+          problems.
+        </li>
+        <li>You can run multiple apps (frontend and backend, or different microservices) without trying to remember
+          which one is on what port
+        </li>
+        <li>You can use and test CORS headers properly
+        </li>
+        <li>You can use and test OAuth workflows and callbacks without weird special cases for the non-SSL localhost
+        </li>
+        <li>You won't accidentally mix and break cookie domains because localhost and 127.0.0.1 aren't really the same
+          thing</li>
+      </ul>
 
-<div class="m-0 p-3 row align-items-center" style="background-color: #ddd;">
+      <img src="/static/loophost-screenshot.png" class="text-center m-5" style="max-width: 800px;" /><br />
+
+      <p>And then it gets better: with a single click in a web interface (or an HTTP post, if you'd rather), you can
+        enable a reverse tunnel for <strong>that app only</strong>, and share that with anyone.</p>
+
+      <ul>
+        <li>The mobile or IoT app you're developing can run on the iPhone, android, iPad,
+          Raspberry Pi or Arduino you've got in your house, and still talk to the API
+          on your desktop
+        </li>
+        <li>Working in the office with a bigger team? They can use the live version of the
+          frontend you're working on, talking to the live version of the backend they're working on
+          - all without any commit-build-deploy loop in the way, or the cost and latency of
+          shared dev servers somewhere else.</li>
+      </ul>
+
+      <p>
+        We don't have time to write yaml. And we definitely don't have time to restart servers.
+        Every modern web framework will <em>watch</em> our source files, and rebuild and restart when needed -
+        so loophost works that way, too. This means that you can use STATEFUL connections like Websockets
+        and SSE, without having those connections torn down because a completely DIFFERENT app needed
+        an updated configuration.
+      </p>
+
+
+
+      Read on for <a href="/tech.html">more of the technical details</a>.
+    </div>
+  </div>
+
+  <div class="m-0 p-3 row align-items-center" style="background-color: #ddd;">
     <label for="curlline" class="col col-xs-12 col-sm-3 fw-bold text-success fs-3 text-end">FREE INSTALL</label>
     <div class="col">
-      <input type="text" onclick="clipReady()"; readonly class="form-control input-lg" id="curlline" value="curl https://loophost.dev/install.sh | bash">
+      <input type="text" onclick="clipReady()" ; readonly class="form-control input-lg" id="curlline"
+        value="curl https://loophost.dev/install.sh | bash">
     </div>
     <div class="col col-xs-1 col-md-2 col-lg-3">
-    <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success" value="Copy!"/>
+      <input id="copyButton" type="button" onclick="clipReady();" class="form-control input-lg btn btn-success"
+        value="Copy!" />
     </div>
-</div>
+  </div>
 
 </main>
 
