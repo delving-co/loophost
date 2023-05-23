@@ -18,19 +18,9 @@ def main_index():
     return render_template("index.html")
 
 
-@app.route("/upgrade.html")
-def upgrade():
-    return render_template("upgrade.html")
-
-
-@app.route("/update.html")
-def update():
-    return render_template("update.html")
-
-
-@app.route("/tech.html")
-def tech():
-    return render_template("tech.html")
+@app.route("/<page>.html")
+def upgrade(page):
+    return render_template(f"{page}.html")
 
 
 @app.route("/install.sh")
