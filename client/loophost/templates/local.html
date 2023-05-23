@@ -1,83 +1,35 @@
-{% extends "start/base.html" %} {% block title %}Loophost.dev: Local software development with Loophosting{%
-endblock %} {% block head %} {{ super() }}
-<style>
-  body {
-    font-family: monospace;
-    background-color: black;
-    color: green;
-  }
-</style>
-{% endblock %} 
-{% block body %}
+{% extends "base.html" %}
+{% block headline %}
+<h1>Configuration for "{{project}}"</h1>
+{% endblock%}
 
-<body class="d-flex flex-column h-100">
+{% block content %}
+{{ super() }}
+<main>
 
-<main class="flex-shrink-0 d-flex flex-column h-100">
-
-    <div class="container mt-4">
-      <div class="row align-items-center justify-content-between p-0 pt-4 m-2">
-        <div class="col col-lg-10">
-          {% block headline %}<h1>Configuration for "{{project}}"</h1>{% endblock %}
-        </div>
-        <div class="col col-lg-2">
-          <a href="https://{{fqdn}}"><img src="/static/logo-square.png" style="max-width: 150px;"/></a>
-        </div>
-      </div>
-    </div>
-
-  {% block content %} {{ super() }}
-
-  <div class="container m-5 font-monospace">
+  <div class="container px-5 mt-2 mb-5 font-monospace">
 
       {% if project not in apps %}
       We don't know where this app is running yet.<br /><br/>
-
-      <form method="post" action="/">
+  {% endif %}
+      <form method="post" action="/config/{{project}}">
         <b>OPTION A: It's using a Unix Socket (fast and great!)</b><br />
-        <i>Put the path to the socket in the field below in the form "/tmp/myapp.soc"</i><br />
+        <i>Put the full path to the socket in the field below in the form "/tmp/myapp.soc"</i><br /><br/>
 
         <b>OPTION B: It's on another Network Port (supports websockets!)</b><br />
-        <i>Put the address of the app in the field below in the form "127.0.0.1:8080"</i><br />
+        <i>Put the address of the app in the field below in the form "http://127.0.0.1:8080"</i><br /><br/>
 
-        <input type="text" name="application_port" /> 
-        <input type="submit" name="add_application" value="Add this app" /><br />
+        Application Port: <input type="text" name="application_port" value="{{config['apps'].get(project)}}" /> 
+        <input type="submit" name="add_application" value="{% if project in apps %}Update{% else %}Add{% endif %} this app" /><br />
       </form>
-      {% else %} This app is configured but it doesn't appear to be available.<br />
-      Most likely, this is because:<br />
-      <ul>
-        <li>the local app isn't running,</li>
-        <br />
-        <li>or the path to the socket is wrong,</li>
-        <br />
-        <li>or the permissions on the socket file need to be fixed.</li>
-      </ul>
-      <br />
-      Try
-      <pre>sudo chmod 666 {{apps[project]}}</pre>
-      and see if that helps.<br />
-
-      {% endif %} 
 <br/>
-      {% include "partials/apptable.html" %}
+{% if project in apps %}
+<h2>Unbind '{{project}}'</h2>
+
+<p><a href="/unbind?project={{project}}">Unbind this project</a> (Note that this will obviously also disconnect any shared tunnels.)</p>
+{% endif %}
+
       
-      Trying to configure loophost for a different app? Just visit <a href="#">https://&lt;yourapp&gt;.{{fqdn}}</a><br />
     </div>
   </main>
-
-  {% endblock %} {% block scripts %} 
-  {{ super() }}
-  <script>
-  window.addEventListener("pageshow", function(event) {
-    if (event.persisted) {
-        window.location.reload(); 
-    }
-  });
-  </script>
-  <footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
-      <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
-    </div>
-  </footer>
-  {% endblock %}
-</body>
 {% endblock %}

@@ -84,6 +84,21 @@ def share():
     return redirect("/")
 
 
+@admin.route("/config/<project>", methods=["GET", "POST"])
+def config_page(project):
+    if request.form.get("application_port"):
+        config["apps"][project] = request.form.get("application_port")
+        with open(DATA_FILE_PATH, "w+") as appjson:
+            appjson.write(json.dumps(config))
+
+    return render_template(
+        "local.html",
+        config=config,
+        apps=config["apps"],
+        share=config.get("share"),
+        project=project
+    )
+
 @admin.route("/", defaults={"path": ""}, methods=["GET", "POST"])
 @admin.route("/<path:path>", methods=["GET", "POST"])
 def admin_page(path):
@@ -97,20 +112,7 @@ def admin_page(path):
             fqdn=".".join(fqdn),
         )
     project = fqdn.pop(0)
-    if request.form.get("application_port"):
-        config["apps"][project] = request.form.get("application_port")
-        with open(DATA_FILE_PATH, "w+") as appjson:
-            appjson.write(json.dumps(config))
-        return redirect(f"https://{project}.{'.'.join(fqdn)}")
 
-    return render_template(
-        "local.html",
-        config=config,
-        apps=config["apps"],
-        share=config.get("share"),
-        project=project,
-        fqdn=".".join(fqdn),
-    )
 
 
 if __name__ == "__main__":

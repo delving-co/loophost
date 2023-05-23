@@ -1,0 +1,61 @@
+{% extends "start/base.html" %}
+{% block title %}Loophost.dev: Local software development made fast and easy{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+
+body {
+    font-family: monospace;
+    background-color: black;
+    color: green;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="d-flex flex-column h-100">
+{% include "partials/upgrade.html" %}
+    <div id="maincontent" class="d-flex flex-column h-100">
+
+    <div class="container">
+      <div class="row align-items-center justify-content-between p-0 m-2">
+        <div class="col col-lg-10">
+          {% block headline %} {% endblock %}
+        </div>
+        <div class="col col-lg-2">
+          <a href="/"><img src="/static/logo-square.png" style="max-width: 150px;"/></a>
+        </div>
+      </div>
+    </div>
+
+{% block content %}
+{{ super() }}
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+  <script>
+  window.addEventListener("pageshow", function(event) {
+    if (event.persisted) {
+        window.location.reload(); 
+    }
+  });
+  </script>
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+  <div class="row justify-content-between">
+    <div class="col col-12 col-lg-3 text-end">
+        <a href="/">Home</a>
+        <a href="https://readthedocs.org/loophost">Docs</a>
+        <a href="https://github.com/delving-co/loophost">Open Source</a>
+    </div>
+    <div class="col col-12 col-lg-3 text-end">
+        <span class="text-muted">Another fun project from <a href="https://github.com/delving-co">delving</a>.</span>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+</div>
+</body>
+{% endblock %}
+

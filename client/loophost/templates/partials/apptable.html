@@ -1,5 +1,5 @@
-<div>
-        Your local apps:<br/>
+<div class="p-2">
+        <h1>Your local apps:</h1>
         {% if not apps %}
             <h2>No local apps set up yet!</h2>
         {% else %}
@@ -10,7 +10,7 @@
                         <th scope="col">Project Name</th>
                         <th scope="col">Location</th>
                         <th scope="col">Toggle Sharing</th>
-                        <th scope="col">Unbind?</th>
+                        <th scope="col">Config</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,12 +27,11 @@
                                 <a href="https://loophost.dev/upgrade.html">Enable</a>
                         {% endif %}
                 </td>
-                <td><a href="/unbind?project={{x}}">X</a></td>
+                <td><a href="/config/{{x}}">config</a></td>
         </tr>
         {% endfor %}
         </tbody>
         </table>
         </div>
         {% endif %}
-        </ul>
 </div>

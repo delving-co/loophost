@@ -1,5 +1,8 @@
-{% extends "start/base.html" %}
-{% block title %}Loophost.dev: Local software development with Loophosting{% endblock %}
+{% extends "base.html" %}
+{% block headline %}
+<h1>Welcome to your LoopHost</h1>
+{% endblock%}
+
 {% block head %}
 {{ super() }}
 <meta http-equiv="refresh" content="60;URL='/'" /> 
@@ -10,57 +13,27 @@ body {
     background-color: black;
     color: green;
 }
-</style
+</style>
 {% endblock %}
 
-{% block body %}
-<body class="d-flex flex-column h-100">
-{% include "partials/upgrade.html" %}
-
-<main class="flex-shrink-0 d-flex flex-column h-100">
-
-    <div class="container mt-4">
-      <div class="row align-items-center justify-content-between p-0 pt-4 m-2">
-        <div class="col col-lg-10">
-          {% block headline %}<h1>Welcome to your LoopHost</h1>{% endblock %}
-        </div>
-        <div class="col col-lg-2">
-          <a href="/"><img src="/static/logo-square.png" style="max-width: 150px;"/></a>
-        </div>
-      </div>
-    </div>
 
 {% block content %}
 {{ super() }}
+<main>
 
-<div class="container m-5 font-monospace">
+  <div class="container px-5 mt-2 mb-5 font-monospace">
 
 {% include "partials/apptable.html" %}
-    
+
+<div class="col-sm-8 m-2">    
 <h2>Add a new application</h2>
-<form method="get" onsubmit="event.preventDefault(); window.location.href = `https://${document.getElementById('new_app_field').value}.{{fqdn}}`;">
+<form method="get" onsubmit="event.preventDefault(); window.location.href = `https://{{fqdn}}/config/${document.getElementById('new_app_field').value}`;">
 App name (no spaces, please): <input id="new_app_field" type="text" name="new_app"/> 
 <input type="submit"  value="Set it up"/>
 </form>
+</div>
 
+</div>
 </main>
 
 {% endblock %}
-{% block scripts %}
-{{ super() }}
-  <script>
-  window.addEventListener("pageshow", function(event) {
-    if (event.persisted) {
-        window.location.reload(); 
-    }
-  });
-  </script>
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    <span class="text-muted">Another fun project from <a href="https://fling.wtf/">fling</a>.</span>
-  </div>
-</footer>
-{% endblock %}
-</body>
-{% endblock %}
-
