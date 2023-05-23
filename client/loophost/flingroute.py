@@ -11,7 +11,7 @@ from fling.start import start
 from flask import Flask, request, render_template, redirect
 from flask_bootstrap import Bootstrap5
 from flask_caching import Cache
-from loophost.launchd_plist import register_tunnel, unregister_tunnel
+from loophost.launchd_plist import register_tunnel, unregister_tunnel, generate_keys
 from loophost import HUBDIR, __version__, DATA_FILE_PATH
 from lastversion import has_update
 from fling_cli import get_fling_client
@@ -57,15 +57,24 @@ def share():
         "LaunchAgents",
         f"dev.fling.hub.ssh.{project}.plist",
     )
+
+    if not os.path.exists("tunnelkey.pub"):
+        # TODO(JMC): Don't do this so often
+        fling_client = get_fling_client(require_auth=True)
+        pub, priv = generate_keys()
+        with open("tunnelkey.pub", "w+") as pubfile:
+            pubfile.write(pub)
+        with open("tunnelkey", "w+") as privfile:
+            privfile.write(priv)
+        os.chmod("tunnelkey", 0o600)
+        expose_app_expose_app_put.sync(client=fling_client, app_name=project, ssh_public_key=pub)
+
     if project and project in config.get("share", {}):
         del config["share"][project]
         unregister_tunnel(target)
     elif project:
         if not config.get("share"):
             config["share"] = {}
-            # TODO(JMC): Don't do this so often
-            fling_client = get_fling_client(require_auth=True)
-            expose_app_expose_app_put.sync(client=fling_client, app_name=project)
         config["share"][project] = "public"
         register_tunnel(
             project, pathlib.Path(HUBDIR, "plist", "ssh.plist.template"), target

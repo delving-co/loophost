@@ -7,17 +7,15 @@
     <key>ProgramArguments</key>
     <array>
         <string>ssh</string>
-        <string>-F</string>
-	    <string>/Users/${LOCAL_USER}/.ssh/config</string>
         <string>-o ServerAliveInterval=60</string>
         <string>-o ExitOnForwardFailure=yes</string>
         <string>-o UserKnownHostsFile=/dev/null</string>
         <string>-o StrictHostKeyChecking=no</string>
         <string>-i</string>
-        <string>/Users/${LOCAL_USER}/.ssh/id_rsa</string>
+        <string>${CWD}/tunnelkey</string>
         <string>-p 2222</string>
         <string>-R ${PROJECT}:443:localhost:4433</string>
-        <string>${LOCAL_USER}@${TUNNEL_DOMAIN}</string>
+        <string>${USERNAME}@${TUNNEL_DOMAIN}</string>
     </array>
     <key>WorkingDirectory</key>
     <string>${CWD}</string>

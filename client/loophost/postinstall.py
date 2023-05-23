@@ -17,12 +17,15 @@ from loophost import (
 
 
 def post_install_one():
+    global USERNAME
     print("Installing LoopHost...")
-    os.makedirs(pathlib.Path(TARGET_DIR, "certs"), exist_ok=True)
+    os.makedirs(pathlib.Path(TARGET_DIR), exist_ok=True)
     os.chdir(TARGET_DIR)
     with open("localuser.txt", "w+") as userfile:
-        userfile.write(os.getlogin())
+        userfile.write(os.getenv("USER"))
     authenticate_with_fling()
+    with open(pathlib.Path(TARGET_DIR, "flinguser.txt"), "r") as userfile:
+        USERNAME = userfile.read()
     issue_certs()
     create_update_loophost_json()
     register_tunnel(
@@ -65,6 +68,7 @@ def issue_certs():
             f"-m webmaster@{LOOPHOST_DOMAIN}",
             "--authenticator=fling_authenticator",
             f'-d "*.{USERNAME}.{LOOPHOST_DOMAIN}"',
+            f'-d "*.{USERNAME}.{TUNNEL_DOMAIN}"',
             f'-d "{USERNAME}.{LOOPHOST_DOMAIN}"',
             # "--force-renewal",
             "--fling_authenticator-propagation-seconds=15",
@@ -112,7 +116,8 @@ def setup_launchd_scripts():
 def restart_as_sudo():
     global USERNAME
     print(
-        "Switching to root user to install web services (you will be prompted for your password)"
+        """Switching to root user to install web services on ports 443 and 80\n\r
+        (you will be prompted for your password)"""
     )
     run(
         "sudo python3 -m loophost.postinstall",

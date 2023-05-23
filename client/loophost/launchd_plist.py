@@ -1,8 +1,17 @@
+from io import StringIO
 import pathlib
 import shutil
 from loophost import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, TARGET_DIR, PYEX, HUBDIR, USERNAME
 from string import Template
 from subprocess import run
+import paramiko
+
+
+def generate_keys():
+    key = paramiko.RSAKey.generate(2048)
+    privateString = StringIO()
+    key.write_private_key(privateString)
+    return f"{key.get_name()} {key.get_base64()}", privateString.getvalue()
 
 
 def register_tunnel(project, template_path, target_path):
@@ -14,7 +23,7 @@ def register_tunnel(project, template_path, target_path):
          "HUBDIR": HUBDIR,
          "LOOPHOST_DOMAIN": LOOPHOST_DOMAIN,
          "TUNNEL_DOMAIN": TUNNEL_DOMAIN,
-         "LOCAL_USER": pathlib.Path('localuser.txt').read_text(),
+         "LOCAL_USER": pathlib.Path('localuser.txt').read_text().strip(),
          "PROJECT": project}
 
     with open(template_path, "r") as f:
