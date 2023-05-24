@@ -36,9 +36,9 @@ an updated configuration.
 
 ## Installation
 
-Install with pip: `pip install loophost`
+Install with pip: `python3 -m pip install loophost`
 
-Then run `python -m loophost.postinstall`
+Then run `python3 -m loophost.postinstall`
 
 This will open a browser window to authenticate with your GitHub account. 
 Then, it will prompt you for your password.
@@ -48,9 +48,9 @@ Finally, it will open a browser window to your local LoopHost admin screen.
 
 ## Uninstalling
 
-If you're done with loophost, simply run `python -m loophost.uninstall`. You will
+If you're done with loophost, simply run `python3 -m loophost.uninstall`. You will
 once again be prompted for your password (to remove the server components). Then
-you can use `pip uninstall loophost` to remove the last of it.
+you can use `pip3 uninstall loophost` to remove the last of it.
 
 Note that the `~/.flingdev` folder will remain with a `flinguser.txt` file in it.
 If you aren't using any other `fling` components and services, you can safely
