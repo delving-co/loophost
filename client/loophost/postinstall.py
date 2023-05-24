@@ -4,6 +4,7 @@ import sys
 import pathlib
 import subprocess
 from subprocess import run
+from certbot.main import main as certmain
 from fling_cli.auth import gh_authenticate
 from loophost.launchd_plist import register_tunnel
 from loophost import (
@@ -45,7 +46,8 @@ def post_install_two():
 
 def authenticate_with_fling():
     global USERNAME
-    gh_authenticate()
+    if not os.path.exists(pathlib.Path(TARGET_DIR, "flinguser.txt")):
+        gh_authenticate()
     if not os.path.exists(pathlib.Path(TARGET_DIR, "flinguser.txt")):
         raise Exception("Github authentication failed, can't continue install.")
     with open(pathlib.Path(TARGET_DIR, "flinguser.txt"), "r") as userfile:
@@ -55,35 +57,23 @@ def authenticate_with_fling():
 def issue_certs():
     global USERNAME, TARGET_DIR
     print("Generating SSL certificates (this may take a minute)...")
-    cmd = " ".join(
-        [
-            "certbot",
+    cmd = [
             "certonly",
-            "--config-dir ./",
-            "--work-dir ./",
-            "--logs-dir ./",
+            "--config-dir", "./",
+            "--work-dir", "./",
+            "--logs-dir", "./",
             "--non-interactive",
             "--expand",
             "--agree-tos",
             f"-m webmaster@{LOOPHOST_DOMAIN}",
             "--authenticator=fling_authenticator",
-            f'-d "*.{USERNAME}.{LOOPHOST_DOMAIN}"',
-            f'-d "*.{USERNAME}.{TUNNEL_DOMAIN}"',
-            f'-d "{USERNAME}.{LOOPHOST_DOMAIN}"',
-            # "--force-renewal",
+            f'-d *.{USERNAME}.{LOOPHOST_DOMAIN}',
+            f'-d *.{USERNAME}.{TUNNEL_DOMAIN}',
+            f'-d {USERNAME}.{LOOPHOST_DOMAIN}',
             "--fling_authenticator-propagation-seconds=15",
         ]
-    )
-    print(cmd)
-    run(
-        cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        stdin=subprocess.PIPE,
-        cwd=TARGET_DIR,
-        shell=True,
-        check=True,
-    )
+    # print(cmd)
+    certmain(cmd)
 
 
 def create_update_loophost_json():
