@@ -119,4 +119,6 @@ def admin_page(path):
 
 
 if __name__ == "__main__":
-    admin.run(host=f"unix://{os.getcwd()}/loophost.soc")
+    # admin.run(host=f"unix://{os.getcwd()}/loophost.soc")
+    admin.run(host=f"0.0.0.0", port=5816)
+

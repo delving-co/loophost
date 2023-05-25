@@ -2,3 +2,5 @@ flask
 fling-start
 certbot
 lastversion
+pyuac
+paramiko

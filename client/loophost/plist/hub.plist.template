@@ -7,24 +7,20 @@
     <key>ProgramArguments</key>
     <array>
         <string>${HUBDIR}/loopproxy</string>
-    </array>
-    <key>EnvironmentVariables</key>
-    <dict>
-        <key>LOOPHOST_DATA_PATH</key>
         <string>${CWD}</string>
-    </dict>
+    </array>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>WorkingDirectory</key>
     <string>${CWD}</string>   
-        <key>StandardInPath</key>
-        <string>/tmp/flinghub.stdin</string>
-        <key>StandardOutPath</key>
-        <string>/tmp/flinghub.stdout</string>
-        <key>StandardErrorPath</key>
-        <string>/tmp/flinghub.stderr</string>
+    <key>StandardInPath</key>
+    <string>/tmp/flinghub.stdin</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/flinghub.stdout</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/flinghub.stderr</string>
     <key>UserName</key>
     <string>root</string>
 </dict>

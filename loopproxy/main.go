@@ -6,13 +6,14 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"path/filepath"
 
 	"github.com/delving-co/loophost/loopproxy/reverseproxy"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gorilla/mux"
 )
 
-var path = os.Getenv("LOOPHOST_DATA_PATH")
+var path = os.Args[1]
 
 func check(e error) {
 	if e != nil {
@@ -30,7 +31,7 @@ func loadRoutes(r *reverseproxy.ReverseProxy) {
 	fmt.Println("Loading routes from json")
 
 	r.ClearTargets()
-	dat, err := os.ReadFile(path + "/loophost.json")
+	dat, err := os.ReadFile(filepath.FromSlash(path + "/loophost.json"))
 	check(err)
 	var defn Loopdata
 	err = json.Unmarshal(dat, &defn)
@@ -48,7 +49,7 @@ func loadRoutes(r *reverseproxy.ReverseProxy) {
 	}
 
 	// Handle anything else
-	r.AddTarget([]string{path + "/loophost.soc"}, nil)
+	r.AddTarget([]string{"http://localhost:5816"}, nil)
 
 }
 

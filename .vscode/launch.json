@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Flask",
+            "name": "SITE",
             "type": "python",
             "request": "launch",
             "module": "flask",
@@ -16,10 +16,19 @@
             },
             "args": [
                 "run",
-                "--host=unix:///tmp/flingdev.soc"
+                // "--host=unix:///tmp/flingdev.soc"
             ],
             "jinja": true,
             "justMyCode": true
-        }
+        },
+        {
+            "name": "LOCAL",
+            "type": "python",
+            "request": "launch",
+            "module": "loophost.flingroute",
+            "cwd": "${workspaceFolder}/client",
+            "jinja": true,
+            "justMyCode": true
+        },
     ]
 }
