@@ -2,11 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"path/filepath"
+	"strings"
 
 	"github.com/delving-co/loophost/loopproxy/reverseproxy"
 	"github.com/fsnotify/fsnotify"
@@ -28,7 +28,7 @@ type Loopdata struct {
 }
 
 func loadRoutes(r *reverseproxy.ReverseProxy) {
-	fmt.Println("Loading routes from json")
+	log.Println("Loading routes from json")
 
 	r.ClearTargets()
 	dat, err := os.ReadFile(filepath.FromSlash(path + "/loophost.json"))
@@ -41,21 +41,29 @@ func loadRoutes(r *reverseproxy.ReverseProxy) {
 		for _, subdomain := range domains {
 			a := mux.NewRouter()
 			host := k + "." + subdomain
-			fmt.Println(host)
-			fmt.Println(defn.Apps[k])
+			log.Println(host)
+			log.Println(defn.Apps[k])
 			a.Host(host)
 			r.AddTarget([]string{defn.Apps[k]}, a)
 		}
 	}
 
 	// Handle anything else
-	r.AddTarget([]string{"http://localhost:5816"}, nil)
+	r.AddTarget([]string{"http://127.0.0.1:5816"}, nil)
 
 }
 
 func main() {
+	f, err := os.OpenFile(filepath.FromSlash(path+"/loophost-goproxy.log"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+	}
+	defer f.Close()
 
-	dat, err := os.ReadFile(path + "/loophost.json")
+	log.SetOutput(f)
+	log.Println("Starting loophost proxy")
+
+	dat, err := os.ReadFile(filepath.FromSlash(path + "/loophost.json"))
 	check(err)
 	var defn Loopdata
 	err = json.Unmarshal(dat, &defn)
@@ -76,9 +84,10 @@ func main() {
 
 	// Start listening for events.
 	go func() {
+		log.Println("In goroutine adding listeners...")
 		r := &reverseproxy.ReverseProxy{}
 		// Listen for http://
-		r.AddListener(":80")
+		// r.AddListener(":80")
 		// Listen for https://
 		r.AddListenerTLS(":443",
 			path+"/live/"+defn.Fqdn+"/fullchain.pem",
@@ -93,6 +102,7 @@ func main() {
 		for {
 			select {
 			case sig := <-hup:
+				log.Println("Received HUP")
 				if sig == 0 {
 					loadRoutes(r)
 
@@ -104,10 +114,12 @@ func main() {
 				if !ok {
 					return
 				}
-				log.Println("event:", event)
 				if event.Has(fsnotify.Write) {
-					log.Println("modified file:", event.Name)
-					go func() { hup <- 0 }()
+					log.Println("event:", event)
+					if strings.HasSuffix(event.Name, "json") {
+						log.Println("modified file:", event.Name)
+						go func() { hup <- 0 }()
+					}
 				}
 
 			case err, ok := <-watcher.Errors:
@@ -123,8 +135,7 @@ func main() {
 	}()
 
 	// Add a path.
-	p := os.Getenv("LOOPHOST_DATA_PATH")
-	err = watcher.Add(p)
+	err = watcher.Add(filepath.FromSlash(path))
 	if err != nil {
 		log.Fatal(err)
 	}

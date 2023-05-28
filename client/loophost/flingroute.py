@@ -23,6 +23,7 @@ config = json.loads(pathlib.Path.read_text(DATA_FILE_PATH()))
 
 
 admin = Flask(__name__)
+admin.config["SECRET_KEY"] = config.get('SECRET_KEY', 'foobar')
 csrf = CSRFProtect(admin)
 bootstrap = Bootstrap5(admin)
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
@@ -88,13 +89,14 @@ def share(project):
 
 @admin.route("/config/<project>", methods=["GET", "POST"])
 def config_page(project):
-    project = request.args.get("project")
     if project and project in config["apps"]:
+        print(f"Updating config for {project} with action {request.form.get('action')}")
         if request.form.get("action") == "unbind":
             unbind(project)
+            return redirect("/")
         elif request.form.get("action") == "share":
             share(project)
-    if request.form.get("application_port"):
+    if request.form.get("application_port") and not request.form.get("action"):
         config["apps"][project] = request.form.get("application_port")
         with open(DATA_FILE_PATH(), "w+") as appjson:
             appjson.write(json.dumps(config))
@@ -103,7 +105,7 @@ def config_page(project):
         "local.html",
         config=config,
         apps=config["apps"],
-        share=config.get("share"),
+        share=config.get("share", {}),
         project=project,
     )
 

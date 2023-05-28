@@ -3,7 +3,6 @@ package reverseproxy
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"net"
 	"net/http"
@@ -90,12 +89,13 @@ func (r *ReverseProxy) AddListenerTLS(address, tlsCert, tlsKey string) {
 
 // Start will listen on configured listeners
 func (r *ReverseProxy) Start() error {
-	fmt.Println("Starting reverse proxy")
+	log.Println("Starting reverse proxy")
 	r.proxy = &httputil.ReverseProxy{
 		Director: r.Director(),
 	}
 
 	for _, l := range r.listeners {
+		log.Println("Making listener for " + l.Addr)
 		listener, err := l.Make()
 		if err != nil {
 			// todo: Close any listeners that
@@ -153,7 +153,7 @@ func (r *ReverseProxy) Stop() {
 func ParseUpstream(r *ReverseProxy, upstream *string) (upstream_url url.URL) {
 	upurl, err := url.Parse(*upstream)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		panic(err)
 	}
 	upstream_url = url.URL(*upurl)
@@ -193,7 +193,7 @@ func (r *ReverseProxy) Director() func(req *http.Request) {
 					// explicitly disable User-Agent so it's not set to default value
 					req.Header.Set("User-Agent", "")
 				}
-				fmt.Println(req.URL.Path)
+				// log.Println(req.URL.Path)
 				break
 			}
 		}

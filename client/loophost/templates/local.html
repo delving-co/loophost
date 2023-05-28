@@ -43,7 +43,7 @@ Public address:
 
 <div class="row">
   <div class="col col-7">
-          App Address: <input type="text" size="30" name="application_port" value="{{config['apps'].get(project)}}" />
+          App Address: <input type="text" size="30" name="application_port" value="{{config['apps'].get(project, '')}}" />
           <input type="submit" class="btn btn-primary" name="add_application" value="{% if project in apps %}Update{% else %}Add{% endif %} this app" />
   </div>
   <div class="col">

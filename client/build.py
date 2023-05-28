@@ -7,7 +7,7 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     setup_kwargs.update(
         {
             "zip_safe": False,
-            "build_golang": {"root": "github.com/10in30/loophost"},
+            "build_golang": {"root": "github.com/delving-co/loophost"},
             "ext_modules": [
                 Extension(
                     "loophost",

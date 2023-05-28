@@ -5,6 +5,41 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "DEMO APP",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "demo/app.py",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "run",
+                "--port=5001"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
+            "name": "LOCAL",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "cwd": "${workspaceFolder}/client",
+            "env": {
+                "FLASK_APP": "loophost/flingroute.py",
+                "FLASK_DEBUG": "1",
+            },
+            "args": [
+                "run",
+                "--port=5816",
+                "--no-debugger",
+                "--no-reload"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
             "name": "SITE",
             "type": "python",
             "request": "launch",
@@ -18,15 +53,6 @@
                 "run",
                 // "--host=unix:///tmp/flingdev.soc"
             ],
-            "jinja": true,
-            "justMyCode": true
-        },
-        {
-            "name": "LOCAL",
-            "type": "python",
-            "request": "launch",
-            "module": "loophost.flingroute",
-            "cwd": "${workspaceFolder}/client",
             "jinja": true,
             "justMyCode": true
         },

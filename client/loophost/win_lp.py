@@ -17,7 +17,7 @@ os.chdir(GET_LOOPHOST_DIR())
 
 
 logging.basicConfig(
-    filename = 'c:\\Users\\joshuamckenty\\loophost-goproxy.log',
+    filename = 'c:\\Users\\Public\\.loophost\\loophost-goproxy-service.log',
     level = logging.DEBUG, 
     format = '[loophost-service] %(levelname)-7.7s %(message)s'
 )
@@ -63,7 +63,7 @@ class LoopProxyService (win32serviceutil.ServiceFramework):
     _svc_name_ = "LoopProxy-Service"
     _svc_display_name_ = "LoopProxy Service"
     _svc_description_ = "This is my service"
-    _exe_name_ = "loopproxy-service.exe"
+    # _exe_name_ = "loopproxy-service.exe"
     
     def __init__(self,args):
         socket.setdefaulttimeout(60)

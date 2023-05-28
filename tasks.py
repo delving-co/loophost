@@ -22,12 +22,12 @@ def build_go(c):
         c.run('go build -ldflags="-extldflags=-static" -tags osusergo,netgo -v')
     try:
         shutil.move(Path("loopproxy", "loopproxy.exe"), Path("client", "loophost", "loopproxy.exe"))
-    except: 
-        pass
+    except Exception as e: 
+        print(e)
     try:
         shutil.move(Path("loopproxy", "loopproxy"), Path("client", "loophost", "loopproxy"))
-    except:
-        pass
+    except Exception as e: 
+        print(e)
 
 @task()
 def build_poetry(c):
