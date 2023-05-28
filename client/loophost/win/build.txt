@@ -1,0 +1,3 @@
+cd C:\Users\joshuamckenty\projects\loophost\client
+pyinstaller --onefile --hidden-import win32timezone loophost\win_hub.py
+copy dist\win_hub.exe C:\Users\joshuamckenty\.pyenv\pyenv-win\versions\3.10.5\lib\site-packages\win32\lib\

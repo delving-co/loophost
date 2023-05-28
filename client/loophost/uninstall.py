@@ -4,7 +4,7 @@ import shutil
 from subprocess import run
 import subprocess
 import sys
-from loophost import TARGET_DIR, USERNAME
+from loophost import GET_LOOPHOST_DIR, GET_FLINGUSER_NAME
 
 
 def uninstall_one():
@@ -15,7 +15,7 @@ def uninstall_one():
     for service in Path("/Users", LOCAL_USER, "Library", "LaunchAgents").glob(
         "dev.fling.hub*"
     ):
-        run(["launchctl", "unload", service], cwd=TARGET_DIR)
+        run(["launchctl", "unload", service], cwd=GET_LOOPHOST_DIR())
         os.unlink(service)
     os.chdir(Path("/Users", LOCAL_USER))
     restart_as_sudo()
@@ -23,12 +23,12 @@ def uninstall_one():
 
 def uninstall_two():
     for service in Path("/Library", "LaunchDaemons").glob("dev.fling.hub*"):
-        run(["launchctl", "unload", service], cwd=TARGET_DIR)
+        run(["launchctl", "unload", service], cwd=GET_LOOPHOST_DIR())
         os.unlink(service)
-    shutil.rmtree(TARGET_DIR)
-    os.makedirs(TARGET_DIR, exist_ok=True)
-    with open(Path(TARGET_DIR, "flinguser.txt"), "w+") as userfile:
-        userfile.write(USERNAME)
+    # shutil.rmtree(TARGET_DIR)
+    # os.makedirs(TARGET_DIR, exist_ok=True)
+    # with open(Path(TARGET_DIR, "flinguser.txt"), "w+") as userfile:
+    #     userfile.write(GET_FLINGUSER_NAME())
 
 
 def restart_as_sudo():

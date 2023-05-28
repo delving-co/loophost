@@ -1,7 +1,7 @@
 """Loophost administration web app.
 This runs as a launchd-dispatched python web app.
 It displays a web-based administration screen.
-Must be run with a CWD of the .flingdev folder in the user's home directory.
+Must be run with a CWD of the .loophost folder.
 """
 
 import os
@@ -16,12 +16,14 @@ from loophost import HUBDIR, __version__, DATA_FILE_PATH
 from lastversion import has_update
 from fling_cli import get_fling_client
 from fling_client.api.loophost import expose_app_expose_app_put
+from flask_wtf.csrf import CSRFProtect
 
 
-config = json.loads(pathlib.Path.read_text(DATA_FILE_PATH))
+config = json.loads(pathlib.Path.read_text(DATA_FILE_PATH()))
 
 
 admin = Flask(__name__)
+csrf = CSRFProtect(admin)
 bootstrap = Bootstrap5(admin)
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 cache.init_app(admin)
@@ -43,7 +45,7 @@ def unbind():
     project = request.args.get("project")
     if project and project in config["apps"]:
         del config["apps"][project]
-        with open(DATA_FILE_PATH, "w+") as appjson:
+        with open(DATA_FILE_PATH(), "w+") as appjson:
             appjson.write(json.dumps(config))
     return redirect("/")
 
@@ -81,7 +83,7 @@ def share():
         register_tunnel(
             project, pathlib.Path(HUBDIR, "plist", "ssh.plist.template"), target
         )
-    with open(DATA_FILE_PATH, "w+") as appjson:
+    with open(DATA_FILE_PATH(), "w+") as appjson:
         appjson.write(json.dumps(config))
     return redirect("/")
 
@@ -90,7 +92,7 @@ def share():
 def config_page(project):
     if request.form.get("application_port"):
         config["apps"][project] = request.form.get("application_port")
-        with open(DATA_FILE_PATH, "w+") as appjson:
+        with open(DATA_FILE_PATH(), "w+") as appjson:
             appjson.write(json.dumps(config))
 
     return render_template(

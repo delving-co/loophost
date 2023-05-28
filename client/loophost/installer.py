@@ -9,27 +9,24 @@ from subprocess import run
 import webbrowser
 from certbot.main import main as certmain
 from fling_cli.auth import gh_authenticate
+
 from loophost.launchd_plist import register_tunnel
 from loophost import (
     LOOPHOST_DOMAIN,
     TUNNEL_DOMAIN,
-    TARGET_DIR,
     HUBDIR,
-    USERNAME,
+    GET_LOOPHOST_DIR,
+    GET_FLINGUSER_NAME,
     DATA_FILE_PATH,
 )
 
 
 def post_install_one():
-    global USERNAME
     print("Installing LoopHost...")
-    os.makedirs(pathlib.Path(TARGET_DIR), exist_ok=True)
-    os.chdir(TARGET_DIR)
-    with open("localuser.txt", "w+") as userfile:
+    localuser_file = pathlib.Path(GET_LOOPHOST_DIR(), "localuser.txt")
+    with open(localuser_file, "w+") as userfile:
         userfile.write(getpass.getuser())
     authenticate_with_fling()
-    with open(pathlib.Path(TARGET_DIR, "flinguser.txt"), "r") as userfile:
-        USERNAME = userfile.read()
     if not platform.system().lower().startswith('win'):
         issue_certs()
     create_update_loophost_json()
@@ -51,17 +48,15 @@ def post_install_two():
 
 
 def authenticate_with_fling():
-    global USERNAME
-    if not os.path.exists(pathlib.Path(TARGET_DIR, "flinguser.txt")):
+    if not GET_FLINGUSER_NAME():
         gh_authenticate()
-    if not os.path.exists(pathlib.Path(TARGET_DIR, "flinguser.txt")):
+    if not GET_FLINGUSER_NAME():
         raise Exception("Github authentication failed, can't continue install.")
-    with open(pathlib.Path(TARGET_DIR, "flinguser.txt"), "r") as userfile:
-        USERNAME = userfile.read()
+
 
 
 def issue_certs():
-    global USERNAME, TARGET_DIR
+    USERNAME = GET_FLINGUSER_NAME()
     print("Generating SSL certificates (this may take a minute)...")
     cmd = [
             "certonly",
@@ -83,9 +78,10 @@ def issue_certs():
 
 
 def create_update_loophost_json():
+    USERNAME = GET_FLINGUSER_NAME()
     data = None
-    if os.path.exists(DATA_FILE_PATH):
-        with open(DATA_FILE_PATH, "r") as datafile:
+    if os.path.exists(DATA_FILE_PATH()):
+        with open(DATA_FILE_PATH(), "r") as datafile:
             data = json.loads(datafile.read())
     else:
         data = {"apps": {}, "share": {}}
@@ -95,7 +91,7 @@ def create_update_loophost_json():
             "tunnel": f"{USERNAME}.{TUNNEL_DOMAIN}",
         }
     )
-    with open(DATA_FILE_PATH, "w") as datafile:
+    with open(DATA_FILE_PATH(), "w") as datafile:
         datafile.write(json.dumps(data))
     return data
 
@@ -110,24 +106,23 @@ def setup_launchd_scripts():
 
 
 def step_two_as_root():
-    global USERNAME
     print(
         """Switching to root/admin user to install web services on ports 443 and 80\n\r
         (you will be prompted for your password)"""
     )
     cmd = "sudo python3 -m loophost.step_two"
     if platform.system().lower().startswith('win'):
-        cmd = "python3 -m loophost.step_two"  # "runas.exe /user:administrator \"
+        cmd = "python3 -m loophost.step_two"
     run(
         cmd,
         shell=True,
         # stdout=subprocess.PIPE,
         # stderr=subprocess.PIPE,
         # stdin=subprocess.PIPE,
-        cwd=TARGET_DIR,
+        cwd=GET_LOOPHOST_DIR(),
         check=True
     )
     print("All finished.")
-    webbrowser.open(f"https://{USERNAME}.{LOOPHOST_DOMAIN}")
+    webbrowser.open(f"https://{GET_FLINGUSER_NAME()}.{LOOPHOST_DOMAIN}")
     sys.exit()
 

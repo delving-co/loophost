@@ -1,7 +1,7 @@
 from io import StringIO
 import pathlib
 import shutil
-from loophost import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, TARGET_DIR, PYEX, HUBDIR, USERNAME
+from loophost import LOOPHOST_DOMAIN, TUNNEL_DOMAIN, PYEX, HUBDIR, GET_FLINGUSER_NAME, GET_LOOPHOST_DIR
 from string import Template
 from subprocess import run
 import paramiko
@@ -15,10 +15,11 @@ def generate_keys():
 
 
 def register_tunnel(project, template_path, target_path):
+    TARGET_DIR = GET_LOOPHOST_DIR()
     shutil.copy2(template_path, TARGET_DIR)
 
     d = {"CWD": TARGET_DIR,
-         "USERNAME": USERNAME,
+         "USERNAME": GET_FLINGUSER_NAME(),
          "PYEX": PYEX,
          "HUBDIR": HUBDIR,
          "LOOPHOST_DOMAIN": LOOPHOST_DOMAIN,
@@ -37,5 +38,5 @@ def register_tunnel(project, template_path, target_path):
 
 
 def unregister_tunnel(target_path):
-    run(["launchctl", "unload", target_path], cwd=TARGET_DIR)
+    run(["launchctl", "unload", target_path], cwd=GET_LOOPHOST_DIR())
     shutil.rmtree(target_path, ignore_errors=True)

@@ -6,3 +6,6 @@ __pycache__
 site/build
 dist
 *.egg-info
+client/build
+_MEI*
+build
