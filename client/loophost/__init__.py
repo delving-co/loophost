@@ -1,5 +1,6 @@
 __version__ = '0.2.9'
 
+import getpass
 import os
 import pathlib
 import sys
@@ -8,7 +9,7 @@ import sys
 LOOPHOST_DOMAIN = "loophost.dev"
 TUNNEL_DOMAIN = "fling.team"
 
-if os.geteuid() != 0:
+if getpass.getuser() not in ["root", "Administrator"]:
     os.makedirs(pathlib.Path(pathlib.Path.home(), ".flingdev"), exist_ok=True)
     os.chdir(pathlib.Path(pathlib.Path.home(), ".flingdev"))
 
