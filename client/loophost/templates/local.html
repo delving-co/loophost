@@ -9,6 +9,16 @@
 
   <div class="container px-5 mt-2 mb-5 font-monospace">
 
+    <form method="post" action="/config/{{project}}" id="config_form">
+      <script>
+        const action_submit = (action) => {
+          document.getElementById('form_action').value = action;
+          document.getElementById('config_form').submit();
+        }
+      </script>
+      <input type="hidden" name="action" id="form_action" />
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
 {% if project in apps %}
 
 <h3>
@@ -19,7 +29,7 @@ Public address:
         <a href="https://{{project}}.{{config["tunnel"]}}">https://{{project}}.{{config["tunnel"]}}</a> 
 {% else %} 
         {% if config["tunnel"] %}
-                <a href="/share?project={{project}}">(disabled)</a>
+                <a onclick="action_submit('share')" href="#">(disabled)</a>
         
         {% else %}
                 <a href="https://loophost.dev/upgrade.html">(disabled)</a>
@@ -31,7 +41,6 @@ Public address:
   {% endif %}
 <br/>
 
-      <form method="post" action="/config/{{project}}">
 <div class="row">
   <div class="col col-7">
           App Address: <input type="text" size="30" name="application_port" value="{{config['apps'].get(project)}}" />
@@ -49,7 +58,7 @@ Public address:
 {% if project in apps %} 
 <div class="row">
   <div class="col col-lg-7">
-<a class="btn btn-primary" href="/share?project={{project}}">{% if project in share %}Disable public sharing{% else %}Enable public shaing{% endif %}</a>
+<a class="btn btn-primary"  onclick="action_submit('share')" href="#">{% if project in share %}Disable public sharing{% else %}Enable public shaing{% endif %}</a>
 </div>
   <div class="col">
     <p>Public sharing will open up a remote tunnel that allows other people in the world to visit your application, at a dedicated address.</p>
@@ -58,7 +67,7 @@ Public address:
 
 <div class="row pb-3">
   <div class="col col-lg-7">
-    <a class="btn btn-danger" href="/unbind?project={{project}}">Unbind this project</a>
+    <a class="btn btn-danger"  onclick="action_submit('unbind')" href="#">Unbind this project</a>
   </div>
   <div class="col">
     <p>This will remove this app from loophost entirely, and disconnect any shared tunnels as well.</p>
@@ -68,13 +77,10 @@ Public address:
 <h4><a href="/">&lt;- Back to application list</a></h4>
 
 {% endif %}
-</form>
 
 <br/>
-
-
-
       
+    </form>
     </div>
   </main>
 {% endblock %}
