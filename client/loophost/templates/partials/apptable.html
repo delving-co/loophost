@@ -8,26 +8,29 @@
                 <thead>
                         <tr>
                         <th scope="col">Project Name</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Toggle Sharing</th>
-                        <th scope="col">Config</th>
+                        <th scope="col">Loophost Address</th>
+                        <th scope="col">Public Address</th>
                         </tr>
                         </thead>
                         <tbody>
         {% for x in apps %}
         <tr>
-                <th scope="row"><a href="https://{{x}}.{{fqdn}}">{{x}}</a>&nbsp;&nbsp;
-                {% if share[x] %} <a href="https://{{x}}.{{config["tunnel"]}}">(shareable)</a>  {% endif %}
+                <th scope="row"><a href="/config/{{x}}">{{x}}</a>
                 </th>
-                <td>{{apps[x]}}</td>
+                <td><a href="https://{{x}}.{{fqdn}}">https://{{x}}.{{fqdn}}</a></td>
+
                 <td>
+                {% if share[x] %} 
+                        <a href="https://{{x}}.{{config["tunnel"]}}">https://{{x}}.{{config["tunnel"]}}</a> 
+                {% else %} 
                         {% if config["tunnel"] %}
-                        <a href="/share?project={{x}}">{% if share[x] %}Disable {% else %}Enable {% endif %}</a>
+                                <a href="/config/{{x}}">(disabled)</a>
+                        
                         {% else %}
-                                <a href="https://loophost.dev/upgrade.html">Enable</a>
-                        {% endif %}
+                                <a href="https://loophost.dev/upgrade.html">(disabled)</a>
+                        {% endif %} 
+                {% endif %}
                 </td>
-                <td><a href="/config/{{x}}">config</a></td>
         </tr>
         {% endfor %}
         </tbody>

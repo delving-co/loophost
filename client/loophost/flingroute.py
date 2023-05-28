@@ -51,6 +51,8 @@ def unbind():
 @admin.route("/share")
 def share():
     project = request.args.get("project")
+    if not project:
+        return redirect("/")
     target = pathlib.Path(
         pathlib.Path.home(),
         "Library",
@@ -83,7 +85,7 @@ def share():
         )
     with open(DATA_FILE_PATH, "w+") as appjson:
         appjson.write(json.dumps(config))
-    return redirect("/")
+    return redirect(f"/config/{project}")
 
 
 @admin.route("/config/<project>", methods=["GET", "POST"])
