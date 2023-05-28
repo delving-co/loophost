@@ -9,25 +9,70 @@
 
   <div class="container px-5 mt-2 mb-5 font-monospace">
 
-      {% if project not in apps %}
-      We don't know where this app is running yet.<br /><br/>
-  {% endif %}
-      <form method="post" action="/config/{{project}}">
-        <b>OPTION A: It's using a Unix Socket (fast and great!)</b><br />
-        <i>Put the full path to the socket in the field below in the form "/tmp/myapp.soc"</i><br /><br/>
-
-        <b>OPTION B: It's on another Network Port (supports websockets!)</b><br />
-        <i>Put the address of the app in the field below in the form "http://127.0.0.1:8080"</i><br /><br/>
-
-        Application Port: <input type="text" name="application_port" value="{{config['apps'].get(project)}}" /> 
-        <input type="submit" name="add_application" value="{% if project in apps %}Update{% else %}Add{% endif %} this app" /><br />
-      </form>
-<br/>
 {% if project in apps %}
-<h2>Unbind '{{project}}'</h2>
 
-<p><a href="/unbind?project={{project}}">Unbind this project</a> (Note that this will obviously also disconnect any shared tunnels.)</p>
+<h3>
+Loophost address: <a href="https://{{project}}.{{config['fqdn']}}">https://{{project}}.{{config['fqdn']}}</a></h3>
+<h3>
+Public address: 
+{% if project in share %} 
+        <a href="https://{{project}}.{{config["tunnel"]}}">https://{{project}}.{{config["tunnel"]}}</a> 
+{% else %} 
+        {% if config["tunnel"] %}
+                <a href="/share?project={{project}}">(disabled)</a>
+        
+        {% else %}
+                <a href="https://loophost.dev/upgrade.html">(disabled)</a>
+        {% endif %} 
+{% endif %}</h3>
+
+      {% else %}
+      <h3>Configure your new app:</h3>
+  {% endif %}
+<br/>
+
+      <form method="post" action="/config/{{project}}">
+<div class="row">
+  <div class="col col-7">
+          App Address: <input type="text" size="30" name="application_port" value="{{config['apps'].get(project)}}" />
+          <input type="submit" class="btn btn-primary" name="add_application" value="{% if project in apps %}Update{% else %}Add{% endif %} this app" />
+  </div>
+  <div class="col">
+          <p>Your application can run on a local network port, or a unix domain socket.</p>
+          <p>If it's running on a network port, make sure the address above starts with <b>the full http://localhost</b>, for example
+          http://localhost:8000.</p>
+          <p>If you're using a unix socket (which is much faster), use the full path to the socket (including a starting /). 
+          For example, /tmp/myapp.soc.</p><br/>
+  </div>     
+<div>
+
+{% if project in apps %} 
+<div class="row">
+  <div class="col col-lg-7">
+<a class="btn btn-primary" href="/share?project={{project}}">{% if project in share %}Disable public sharing{% else %}Enable public shaing{% endif %}</a>
+</div>
+  <div class="col">
+    <p>Public sharing will open up a remote tunnel that allows other people in the world to visit your application, at a dedicated address.</p>
+  </div>
+</div>
+
+<div class="row pb-3">
+  <div class="col col-lg-7">
+    <a class="btn btn-danger" href="/unbind?project={{project}}">Unbind this project</a>
+  </div>
+  <div class="col">
+    <p>This will remove this app from loophost entirely, and disconnect any shared tunnels as well.</p>
+  </div>
+</div>
+
+<h4><a href="/">&lt;- Back to application list</a></h4>
+
 {% endif %}
+</form>
+
+<br/>
+
+
 
       
     </div>
