@@ -40,28 +40,7 @@ def inject_globals():
     return dict(NEW_VERSION=latest_version())
 
 
-@admin.route("/unbind")
-def unbind():
-    project = request.args.get("project")
-    if project and project in config["apps"]:
-        del config["apps"][project]
-        with open(DATA_FILE_PATH(), "w+") as appjson:
-            appjson.write(json.dumps(config))
-    return redirect("/")
-
-
-@admin.route("/share")
-def share():
-    project = request.args.get("project")
-    if not project:
-        return redirect("/")
-    target = pathlib.Path(
-        pathlib.Path.home(),
-        "Library",
-        "LaunchAgents",
-        f"dev.fling.hub.ssh.{project}.plist",
-    )
-
+def setup_tunnel_keys(project):
     if not os.path.exists("tunnelkey.pub"):
         # TODO(JMC): Don't do this so often
         fling_client = get_fling_client(require_auth=True)
@@ -75,10 +54,27 @@ def share():
             client=fling_client, app_name=project, ssh_public_key=pub
         )
 
+
+def unbind(project):
+    del config["apps"][project]
+    with open(DATA_FILE_PATH(), "w+") as appjson:
+        appjson.write(json.dumps(config))
+    return
+
+
+def share(project):
+    target = pathlib.Path(
+        pathlib.Path.home(),
+        "Library",
+        "LaunchAgents",
+        f"dev.fling.hub.ssh.{project}.plist",
+    )
+
     if project and project in config.get("share", {}):
         del config["share"][project]
         unregister_tunnel(target)
     elif project:
+        setup_tunnel_keys(project)
         if not config.get("share"):
             config["share"] = {}
         config["share"][project] = "public"
@@ -92,6 +88,12 @@ def share():
 
 @admin.route("/config/<project>", methods=["GET", "POST"])
 def config_page(project):
+    project = request.args.get("project")
+    if project and project in config["apps"]:
+        if request.form.get("action") == "unbind":
+            unbind(project)
+        elif request.form.get("action") == "share":
+            share(project)
     if request.form.get("application_port"):
         config["apps"][project] = request.form.get("application_port")
         with open(DATA_FILE_PATH(), "w+") as appjson:
