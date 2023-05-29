@@ -5,8 +5,10 @@ Must be run with a CWD of the .loophost folder.
 """
 
 import os
+import sys
 import json
 import pathlib
+from fling import start as startmod
 from fling.start import start
 from flask import Flask, request, render_template, redirect
 from flask_bootstrap import Bootstrap5
@@ -21,14 +23,19 @@ from flask_wtf.csrf import CSRFProtect
 
 config = json.loads(pathlib.Path.read_text(DATA_FILE_PATH()))
 
+admin = None
+if getattr(sys, 'frozen', False):
+    template_folder = os.path.join(sys._MEIPASS, 'templates')
+    static_folder = os.path.join(sys._MEIPASS, 'static')
+    admin = Flask(__name__, template_folder=template_folder, static_folder=static_folder)
+else:
+    admin = Flask(__name__)
 
-admin = Flask(__name__)
 admin.config["SECRET_KEY"] = config.get('SECRET_KEY', 'foobar')
 csrf = CSRFProtect(admin)
 bootstrap = Bootstrap5(admin)
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 cache.init_app(admin)
-admin.register_blueprint(start, url_prefix="/start")  # unused but I need the templates
 
 
 @cache.cached(timeout=3600)
