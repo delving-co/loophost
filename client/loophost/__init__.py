@@ -1,6 +1,5 @@
-__version__ = '0.2.9'
+__version__ = "0.3.0"
 
-import getpass
 import os
 import pathlib
 import platform
@@ -13,9 +12,10 @@ TUNNEL_DOMAIN = "fling.team"
 PYEX = sys.executable
 HUBDIR = os.path.dirname(os.path.realpath(__file__))
 
+
 def GET_LOOPHOST_DIR():
-    DIR = pathlib.Path("\\", "Users", "Shared", ".loophost")
-    if platform.system().lower().startswith('win'):
+    DIR = pathlib.Path("/Users", "Shared", ".loophost")
+    if platform.system().lower().startswith("win"):
         DIR = pathlib.Path("\\Users", "Public", ".loophost")
     os.makedirs(DIR, exist_ok=True)
     os.chdir(DIR)
@@ -23,6 +23,8 @@ def GET_LOOPHOST_DIR():
 
 
 _USERNAME = None
+
+
 def GET_FLINGUSER_NAME():
     global _USERNAME
     if _USERNAME is None:

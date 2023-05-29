@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "loophost"
-version = "0.2.9"
+version = "0.3.0"
 description = "Loophost: for a better local dev"
 authors = [
     "Joshua McKenty <jmckenty@gmail.com>",
@@ -18,6 +18,7 @@ include = [{ path = "VERSION" },
             { path = "loophost/templates" }, 
             { path = "loophost/static" }, 
             { path = "loophost/loopproxy"}, 
+            { path = "loophost/loopproxy.exe"}, 
             { path = "loophost/plist/*.plist.template"}] 
 packages = [
     { include = "loophost", format = ["wheel"] },
@@ -36,7 +37,7 @@ setuptools = "*"
 [tool.poetry.dependencies]
 python = "^3.9"
 fling-start = "^0.1.14"
-fling-cli = "^0.1.5"
+fling-cli = "^0.1.7"
 certbot = "^2.6.0"
 flask = "^2.3.2"
 lastversion = "^2.4.15"

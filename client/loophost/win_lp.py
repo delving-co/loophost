@@ -1,11 +1,10 @@
 import os
-import pathlib
 from subprocess import run
 import sys
 import threading
 import win32serviceutil
 import win32service
-import win32event
+# import win32event
 import servicemanager
 import socket
 import time
@@ -17,13 +16,10 @@ os.chdir(GET_LOOPHOST_DIR())
 
 
 logging.basicConfig(
-    filename = 'c:\\Users\\Public\\.loophost\\loophost-goproxy-service.log',
-    level = logging.DEBUG, 
-    format = '[loophost-service] %(levelname)-7.7s %(message)s'
+    filename="c:\\Users\\Public\\.loophost\\loophost-goproxy-service.log",
+    level=logging.DEBUG,
+    format="[loophost-service] %(levelname)-7.7s %(message)s",
 )
-
-
-
 
 
 class workingthread(threading.Thread):
@@ -37,8 +33,8 @@ class workingthread(threading.Thread):
             # Running start_flask() function on different thread, so that it doesn't blocks the code
             executor = concurrent.futures.ThreadPoolExecutor(max_workers=5)
             executor.submit(self.start_flask)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
         # Following Lines are written so that, the program doesn't get quit
         # Will Run a Endless While Loop till Stop signal is not received from Windows Service API
@@ -46,7 +42,7 @@ class workingthread(threading.Thread):
             time.sleep(1)
 
     def start_flask(self):
-        cmd = f"loopproxy.exe /Users/Public/.loophost"
+        cmd = "loopproxy.exe /Users/Public/.loophost"
         run(
             cmd,
             shell=True,
@@ -54,18 +50,17 @@ class workingthread(threading.Thread):
             # stderr=subprocess.PIPE,
             # stdin=subprocess.PIPE,
             cwd=HUBDIR,
-            check=True
+            check=True,
         )
 
 
-
-class LoopProxyService (win32serviceutil.ServiceFramework):
+class LoopProxyService(win32serviceutil.ServiceFramework):
     _svc_name_ = "LoopProxy-Service"
     _svc_display_name_ = "LoopProxy Service"
     _svc_description_ = "This is my service"
     # _exe_name_ = "loopproxy-service.exe"
-    
-    def __init__(self,args):
+
+    def __init__(self, args):
         socket.setdefaulttimeout(60)
         win32serviceutil.ServiceFramework.__init__(self, args)
         self.hWaitStop = threading.Event()
@@ -81,7 +76,7 @@ class LoopProxyService (win32serviceutil.ServiceFramework):
         self.thread.join()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(f"Got {len(sys.argv)} arguments")
     if len(sys.argv) < 2:
         print("")
