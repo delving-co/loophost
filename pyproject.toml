@@ -1,0 +1,9 @@
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.0.0"
+tag_format = "v$version"
+version_files = [
+    "client/VERSION",
+    "client/pyproject.toml:^version",
+    "client/loophost/__init__.py:^__version",
+    ]
