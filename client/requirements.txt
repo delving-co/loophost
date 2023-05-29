@@ -5,3 +5,4 @@ lastversion
 pyuac
 paramiko
 flask_wtf
+commitizen

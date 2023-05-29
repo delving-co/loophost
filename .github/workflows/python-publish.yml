@@ -1,4 +1,4 @@
-name: Python package
+name: python-publish
 on:
   push:
     tags:
@@ -13,8 +13,10 @@ jobs:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v3
-      - name: Build and publish to pypi
-        uses: JRubics/poetry-publish@v1.16
+      - name: Build with poetry
+        run: |
+          cd client && poetry build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          pypi_token: ${{ secrets.PYPI_TOKEN }}
-          package_directory: "client"
+          packages-dir: "client/dist"
