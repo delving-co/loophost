@@ -6,7 +6,7 @@
     <string>dev.fling.hub</string>
     <key>ProgramArguments</key>
     <array>
-        <string>${HUBDIR}/loopproxy</string>
+        <string>${HUBDIR}/bin/loopproxy</string>
         <string>${CWD}</string>
     </array>
     <key>RunAtLoad</key>

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core", "poetry>=0.12", "setuptools", "wheel", "setuptools-cpp", "setuptools-golang"]
+requires = ["poetry-core", "poetry>=0.12", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
@@ -15,10 +15,9 @@ include = [{ path = "VERSION" },
             { path = "README.md" }, 
             { path = "setup.py" }, 
             { path = "build.py" }, 
+            { path = "loophost/bin" }, 
             { path = "loophost/templates" }, 
             { path = "loophost/static" }, 
-            { path = "loophost/loopproxy"}, 
-            { path = "loophost/loopproxy.exe"}, 
             { path = "loophost/plist/*.plist.template"}] 
 packages = [
     { include = "loophost", format = ["wheel"] },

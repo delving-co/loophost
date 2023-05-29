@@ -42,7 +42,7 @@ class workingthread(threading.Thread):
             time.sleep(1)
 
     def start_flask(self):
-        cmd = "loopproxy.exe /Users/Public/.loophost"
+        cmd = "bin\\loopproxy.exe /Users/Public/.loophost"
         run(
             cmd,
             shell=True,
