@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "loophost"
-version = "0.3.0"
+version = "1.0.0"
 description = "Loophost: for a better local dev"
 authors = [
     "Joshua McKenty <jmckenty@gmail.com>",
@@ -47,7 +47,7 @@ pyuac = "^0.0.3"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.3.0"
+version = "1.0.0"
 tag_format = "v$version"
 version_files = [
     "VERSION",
