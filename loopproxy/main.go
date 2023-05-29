@@ -115,7 +115,6 @@ func main() {
 					return
 				}
 				if event.Has(fsnotify.Write) {
-					log.Println("event:", event)
 					if strings.HasSuffix(event.Name, "json") {
 						log.Println("modified file:", event.Name)
 						go func() { hup <- 0 }()
