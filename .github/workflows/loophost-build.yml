@@ -31,18 +31,28 @@ jobs:
     needs: build
     name: Publish wheels
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/loophost
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
         - name: linux-wheel-download
           uses: actions/download-artifact@v3
           with:
             name: ubuntu-latest-wheels
+
         - name: mac-wheel-downlod      
           uses: actions/download-artifact@v3
           with:
               name: macOS-latest-wheels
+
         - name: windows-wheel-download
           uses: actions/download-artifact@v3
           with:
               name: windows-latest-wheels
-        - name: Display structure of downloaded files
-          run: ls -R
+
+        - name: Publish package distributions to PyPI
+          uses: pypa/gh-action-pypi-publish@release/v1
+          with:
+            packages-dir: "./"
