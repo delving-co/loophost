@@ -15,14 +15,14 @@ include = [{ path = "VERSION" },
             { path = "README.md" }, 
             { path = "setup.py" }, 
             { path = "build.py" }, 
-            { path = "loophost/bin" }, 
+            { path = "loophost/bins" }, 
             { path = "loophost/templates" }, 
             { path = "loophost/static" }, 
             { path = "loophost/plist/*.plist.template"}] 
 packages = [
     { include = "loophost", format = ["wheel"] },
 ]
-build = "build.py"
+# build = "pbuild.py"
 
 [tool.poetry.urls]
 homepage = "https://loophost.dev"

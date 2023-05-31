@@ -12,21 +12,13 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
         - uses: actions/checkout@v3
-        - name: Set up Python 3.9
-          uses: actions/setup-python@v3
-          with:
-            python-version: "3.9"
-        - name: Install dependencies
+        - name: Build go binaries
           run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-        - name: Build go and wheels
-          run: |
-            inv build 
+            inv build-go
         - uses: actions/upload-artifact@v3
           with:
-            name: ${{ matrix.os }}-wheels
-            path: client/dist/
+            name: ${{ matrix.os }}-binaries
+            path: client/loophost/bins
   publish:
     needs: build
     name: Publish wheels
@@ -37,22 +29,35 @@ jobs:
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
+        - uses: actions/checkout@v3
+        - name: Set up Python 3.9
+          uses: actions/setup-python@v3
+          with:
+            python-version: "3.9"
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
         - name: linux-wheel-download
           uses: actions/download-artifact@v3
           with:
-            name: ubuntu-latest-wheels
+            name: ubuntu-latest-binaries
 
         - name: mac-wheel-downlod      
           uses: actions/download-artifact@v3
           with:
-              name: macOS-latest-wheels
+              name: macOS-latest-binaries
 
         - name: windows-wheel-download
           uses: actions/download-artifact@v3
           with:
-              name: windows-latest-wheels
+              name: windows-latest-binaries
+
+        - name: build wheel
+          run: |
+            mv loopproxy-* client/loophost/bins/ && pushd client && poetry build --format=wheel && popd 
 
         - name: Publish package distributions to PyPI
           uses: pypa/gh-action-pypi-publish@release/v1
           with:
-            packages-dir: "./"
+            packages-dir: "client/dist"

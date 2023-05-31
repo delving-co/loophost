@@ -38,7 +38,7 @@ def build_go(c):
                         -tags osusergo,netgo \
                         -o loopproxy-{p}-{a}')
                     try:
-                        c.run(f"mv loopproxy-{p}-{a} ../client/loophost/loopproxy-{p}-{a}")
+                        c.run(f"mv loopproxy-{p}-{a} ../client/loophost/bins/loopproxy-{p}-{a}")
                     except Exception as e:
                         print(e)
 
@@ -47,7 +47,7 @@ def build_go(c):
 def build_poetry(c):
     for package in packages:
         with c.cd(package):
-            c.run("poetry build")
+            c.run("poetry build --no-cache --format=wheel")
 
 
 @task(pre=[clean, build_go, build_poetry])
