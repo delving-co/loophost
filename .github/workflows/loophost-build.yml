@@ -42,28 +42,23 @@ jobs:
           uses: actions/setup-python@v3
           with:
             python-version: "3.9"
+            
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip
             pip install -r requirements.txt
-        - name: linux-wheel-download
+        - name: binary-downloads
           uses: actions/download-artifact@v3
-          with:
-            name: ubuntu-latest-binaries
 
-        - name: mac-wheel-downlod      
-          uses: actions/download-artifact@v3
-          with:
-              name: macOS-latest-binaries
-
-        - name: windows-wheel-download
-          uses: actions/download-artifact@v3
-          with:
-              name: windows-latest-binaries
+        - name: move binaries
+          run: |
+            cp -a windows-latest-binaries/* client/loophost/bins/ && \
+            cp -a ubuntu-latest-binaries/* client/loophost/bins/ && \
+            cp -a macOS-latest-binaries/* client/loophost/bins/
 
         - name: build wheel
           run: |
-            mv loopproxy-* client/loophost/bins/ && pushd client && poetry build --format=wheel && popd 
+            pushd client && poetry build --format=wheel && popd
 
         - name: Publish package distributions to PyPI
           uses: pypa/gh-action-pypi-publish@release/v1
