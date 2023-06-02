@@ -1,10 +1,9 @@
 import os
 from pathlib import Path
-import shutil
 from subprocess import run
 import subprocess
 import sys
-from loophost import GET_LOOPHOST_DIR, GET_FLINGUSER_NAME
+from loophost import GET_LOOPHOST_DIR
 
 
 def uninstall_one():

@@ -8,13 +8,11 @@ import os
 import sys
 import json
 import pathlib
-from fling import start as startmod
-from fling.start import start
 from flask import Flask, request, render_template, redirect
 from flask_bootstrap import Bootstrap5
 from flask_caching import Cache
-from loophost.launchd_plist import register_tunnel, unregister_tunnel, generate_keys
-from loophost import HUBDIR, __version__, DATA_FILE_PATH
+from loophost.keys import generate_keys
+from loophost import __version__, DATA_FILE_PATH
 from lastversion import has_update
 from fling_cli import get_fling_client
 from fling_client.api.loophost import expose_app_expose_app_put
@@ -50,7 +48,6 @@ def inject_globals():
 
 def setup_tunnel_keys(project):
     if not os.path.exists("tunnelkey.pub"):
-        # TODO(JMC): Don't do this so often
         fling_client = get_fling_client(require_auth=True)
         pub, priv = generate_keys()
         with open("tunnelkey.pub", "w+") as pubfile:
@@ -71,24 +68,13 @@ def unbind(project):
 
 
 def share(project):
-    target = pathlib.Path(
-        pathlib.Path.home(),
-        "Library",
-        "LaunchAgents",
-        f"dev.fling.hub.ssh.{project}.plist",
-    )
-
     if project and project in config.get("share", {}):
         del config["share"][project]
-        unregister_tunnel(target)
     elif project:
         setup_tunnel_keys(project)
         if not config.get("share"):
             config["share"] = {}
         config["share"][project] = "public"
-        register_tunnel(
-            project, pathlib.Path(HUBDIR, "plist", "ssh.plist.template"), target
-        )
     with open(DATA_FILE_PATH(), "w+") as appjson:
         appjson.write(json.dumps(config))
     return redirect(f"/config/{project}")
@@ -135,5 +121,4 @@ def admin_page(path):
 
 if __name__ == "__main__":
     # admin.run(host=f"unix://{os.getcwd()}/loophost.soc")
-    admin.run(host=f"0.0.0.0", port=5816)
-
+    admin.run(host="0.0.0.0", port=5816)

@@ -1,11 +1,12 @@
 import getpass
 import platform
-from loophost.installer import post_install_two, step_two_as_root
+from loophost.installer import step_two_win, step_two_mac, step_two_linux, step_two_as_root
 from pyuac import main_requires_admin
+
 
 @main_requires_admin
 def win_main():
-    post_install_two()
+    step_two_win()
 
 
 if __name__ == "__main__":
@@ -15,4 +16,7 @@ if __name__ == "__main__":
     elif getpass.getuser() not in ["root"]:
         step_two_as_root()
     else:
-        post_install_two()
+        if "linux" in platform.system().lower():
+            step_two_linux()
+        else:
+            step_two_mac()

@@ -54,7 +54,7 @@ func loadRoutes(r *reverseproxy.ReverseProxy) {
 }
 
 func main() {
-	f, err := os.OpenFile(filepath.FromSlash(path+"/loophost-goproxy.log"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile(filepath.FromSlash("/tmp/loophost-goproxy.log"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}

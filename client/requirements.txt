@@ -6,3 +6,5 @@ pyuac
 paramiko
 flask_wtf
 commitizen
+watchdog
+command_runner
