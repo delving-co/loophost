@@ -56,12 +56,12 @@ jobs:
         - name: show files
           run: ls -alR
 
-        # - name: move binaries
-        #   run: |
-        #     pushd client/loophost/bins &&
-        #     mv windows-latest-binaries/* ./ && \
-        #     mv ubuntu-latest-binaries/* ./ && \
-        #     mv macOS-latest-binaries/* ./ && popd
+        - name: move binaries
+          run: |
+            pushd client/loophost/bins &&
+            mv ubuntu-latest-binaries/* ./ && \
+            mv macOS-latest-binaries/* ./ && \
+            mv windows-latest-binaries/* ./ && popd
 
         - name: build wheel
           run: |

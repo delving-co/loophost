@@ -25,7 +25,7 @@ def build_go(c):
         if platform.system().lower().startswith('win'):
             c.run('go build -ldflags="-extldflags=-static" -tags osusergo,netgo -v -o loopproxy.exe')
             try:
-                shutil.move(Path("loopproxy", "loopproxy.exe"), Path("client", "loophost", "loopproxy.exe"))
+                shutil.move("loopproxy.exe", Path("..", "client", "loophost", "bins", "loopproxy.exe"))
             except Exception as e:
                 print(e)
         else:
