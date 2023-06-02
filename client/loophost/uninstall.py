@@ -7,10 +7,10 @@ from loophost import GET_LOOPHOST_DIR
 
 
 def uninstall_one():
-    if not os.path.exists(Path("localuser.txt")):
+    if not os.path.exists(Path(GET_LOOPHOST_DIR(), "localuser.txt")):
         print("Seems to have already been uninstalled")
         exit(0)
-    LOCAL_USER = Path("localuser.txt").read_text().strip()
+    LOCAL_USER = Path(GET_LOOPHOST_DIR(), "localuser.txt").read_text().strip()
     for service in Path("/Users", LOCAL_USER, "Library", "LaunchAgents").glob(
         "dev.fling.hub*"
     ):
@@ -24,10 +24,6 @@ def uninstall_two():
     for service in Path("/Library", "LaunchDaemons").glob("dev.fling.hub*"):
         run(["launchctl", "unload", service], cwd=GET_LOOPHOST_DIR())
         os.unlink(service)
-    # shutil.rmtree(TARGET_DIR)
-    # os.makedirs(TARGET_DIR, exist_ok=True)
-    # with open(Path(TARGET_DIR, "flinguser.txt"), "w+") as userfile:
-    #     userfile.write(GET_FLINGUSER_NAME())
 
 
 def restart_as_sudo():

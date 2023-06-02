@@ -49,12 +49,15 @@ jobs:
             pip install -r requirements.txt
         - name: binary-downloads
           uses: actions/download-artifact@v3
+          with:
+            path: client/loophost/bins
 
         - name: move binaries
+          working-directory: client/loophost/bins
           run: |
-            cp -a windows-latest-binaries/* client/loophost/bins/ && \
-            cp -a ubuntu-latest-binaries/* client/loophost/bins/ && \
-            cp -a macOS-latest-binaries/* client/loophost/bins/
+            mv windows-latest-binaries/* ./ && \
+            mv ubuntu-latest-binaries/* ./ && \
+            mv macOS-latest-binaries/* ./
 
         - name: build wheel
           run: |
