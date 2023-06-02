@@ -47,17 +47,18 @@ jobs:
           run: |
             python -m pip install --upgrade pip
             pip install -r requirements.txt
+
         - name: binary-downloads
           uses: actions/download-artifact@v3
           with:
             path: client/loophost/bins
 
         - name: move binaries
-          working-directory: client/loophost/bins
           run: |
+            pushd client/loophost/bins &&
             mv windows-latest-binaries/* ./ && \
             mv ubuntu-latest-binaries/* ./ && \
-            mv macOS-latest-binaries/* ./
+            mv macOS-latest-binaries/* ./ && popd
 
         - name: build wheel
           run: |
