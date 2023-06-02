@@ -28,7 +28,7 @@ jobs:
           uses: py-actions/py-dependency-install@v4
           with:
               update-pip: "false"
-              path: "requirements-${{ matrix.os }}.txt"
+              path: "client/requirements-${{ matrix.os }}.txt"
 
         - name: Build go binaries
           run: |
