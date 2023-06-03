@@ -61,14 +61,14 @@ jobs:
         - name: binary-downloads
           uses: actions/download-artifact@v3
 
-        - name: move binaries
+        - name: move the binaries
           run: |
             mv ubuntu-latest-binaries/* client/loophost/bins/ && \
             mv macOS-latest-binaries/* client/loophost/bins/ && \
             mv windows-latest-binaries/* client/loophost/bins/
         
-        - name: show files
-          run: ls -alR
+        - name: chmod the binaries
+          run: chmod a+x client/loophost/bins/*
   
         - name: build wheel
           run: |
