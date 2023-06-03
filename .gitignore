@@ -7,6 +7,5 @@ site/build
 dist
 *.egg-info
 client/build
-client/loophost/bins/loopproxy*
 _MEI*
 build
